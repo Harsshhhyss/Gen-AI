@@ -47,10 +47,6 @@ export const ContactSection: React.FC = () => {
     offset: ['start end', 'end end'],
   });
 
-  // Big CTA text parallax
-  const ctaY = useTransform(scrollYProgress, [0, 1], [120, 0]);
-  const ctaOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
-
   // Gradient orb movement
   const orbY = useTransform(scrollYProgress, [0, 1], [200, -80]);
 
@@ -78,7 +74,6 @@ export const ContactSection: React.FC = () => {
     >
       {/* ── Ambient gradient orb ── */}
       <motion.div
-        style={{ y: orbY }}
         className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 w-[900px] h-[900px] rounded-full opacity-20 blur-[120px]"
         style={{
           y: orbY,
