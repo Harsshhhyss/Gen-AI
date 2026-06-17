@@ -1,0 +1,196 @@
+import React, { useRef, useMemo } from 'react';
+import { FadeIn } from '../components/FadeIn';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Sphere, MeshDistortMaterial, PointMaterial } from '@react-three/drei';
+import * as THREE from 'three';
+import { motion } from 'framer-motion';
+
+const InstaIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><defs><linearGradient id="insta-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f09433" /><stop offset="25%" stopColor="#e6683c" /><stop offset="50%" stopColor="#dc2743" /><stop offset="75%" stopColor="#cc2366" /><stop offset="100%" stopColor="#bc1888" /></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#insta-grad)"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#insta-grad)"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#insta-grad)"></line></svg>;
+const LinkedinIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
+const TwitterIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#1DA1F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>;
+const DribbbleIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#EA4C89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="10"></circle><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"></path></svg>;
+
+const ParticleCore = () => {
+  const starsRef = useRef<THREE.Points>(null);
+  const coreGroupRef = useRef<THREE.Group>(null);
+
+  // Generate a vast starfield
+  const count = 3000;
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 50;     // x
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 50; // y
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 40 - 10; // z
+    }
+    return pos;
+  }, [count]);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (starsRef.current) {
+      starsRef.current.rotation.y = t * 0.01;
+      starsRef.current.rotation.z = t * 0.005;
+    }
+    if (coreGroupRef.current) {
+      // Mouse tracking for the core ONLY
+      coreGroupRef.current.position.x = THREE.MathUtils.lerp(coreGroupRef.current.position.x, state.pointer.x * 2.5, 0.05);
+      coreGroupRef.current.position.y = THREE.MathUtils.lerp(coreGroupRef.current.position.y, Math.sin(t * 1.5) * 0.2 + state.pointer.y * 2.5, 0.05);
+      coreGroupRef.current.rotation.x = t * 0.2;
+      coreGroupRef.current.rotation.y = t * 0.3;
+    }
+  });
+
+  return (
+    <group>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} intensity={2} color="#7621B0" />
+      <directionalLight position={[-10, -10, -5]} intensity={2} color="#00d8ff" />
+      
+      {/* Central Interactive Core */}
+      <group ref={coreGroupRef}>
+        <Sphere args={[1.8, 64, 64]}>
+          <MeshDistortMaterial 
+            color="#0C0C0C" 
+            emissive="#7621B0"
+            emissiveIntensity={0.6}
+            attach="material" 
+            distort={0.4} 
+            speed={2.5} 
+            roughness={0.2}
+            metalness={1}
+            wireframe={true}
+          />
+        </Sphere>
+        <Sphere args={[1.7, 32, 32]}>
+           <meshStandardMaterial color="#0C0C0C" roughness={0.1} metalness={0.9} />
+        </Sphere>
+      </group>
+
+      {/* Background Stars */}
+      <points ref={starsRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[positions, 3]}
+          />
+        </bufferGeometry>
+        <PointMaterial transparent color="#FFFFFF" size={0.06} sizeAttenuation={true} depthWrite={false} opacity={0.85} />
+      </points>
+    </group>
+  );
+};
+
+export const HeroSection: React.FC = () => {
+  return (
+    <section className="h-screen w-full flex flex-col relative overflow-hidden bg-background">
+      {/* 3D Canvas Background */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
+          <ParticleCore />
+        </Canvas>
+        {/* Gradient overlay to blend bottom into next section */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-0 pointer-events-none" />
+      </div>
+
+      {/* Top Navigation - Fixed across all sections */}
+      <div className="fixed top-0 left-0 w-full p-6 sm:p-8 md:p-12 z-[90] pointer-events-none mix-blend-difference">
+        <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
+          {/* Logo — top left */}
+          <div className="flex items-center gap-3 md:gap-4 cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-tr from-[#7621B0] to-[#00d8ff] rounded-xl flex items-center justify-center transform rotate-12 shadow-[0_0_20px_rgba(118,33,176,0.6)]">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 md:w-9 md:h-9 text-white transform -rotate-12">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Right side container */}
+          <div className="flex items-center">
+            {/* Floating pill nav — top right */}
+            <div className="hidden md:flex items-center gap-2 rounded-full px-3 py-2.5"
+              style={{
+                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
+                backdropFilter: 'blur(24px)',
+                border: '1px solid rgba(0,216,255,0.2)',
+                borderTopColor: 'rgba(118,33,176,0.4)',
+                borderBottomColor: 'rgba(0,216,255,0.1)',
+                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
+              }}>
+              {['About', 'Services', 'Projects', 'Contact'].map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  className="relative px-6 py-2 rounded-full text-base font-medium tracking-wider text-white/90 hover:text-white transition-all duration-300 hover:bg-white/15 group"
+                >
+                  {link}
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00d8ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_8px_#00d8ff]" />
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile hamburger */}
+            <div className="md:hidden flex items-center">
+              <button className="w-10 h-10 flex flex-col justify-center items-center gap-[5px]">
+                <span className="w-6 h-[2px] bg-white rounded-full" />
+                <span className="w-4 h-[2px] bg-white/60 rounded-full" />
+              </button>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+
+
+      {/* Hero Heading & Tagline & Button */}
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full mt-6 sm:mt-4 md:-mt-5 px-4">
+        <FadeIn delay={0.15} y={40} className="w-full flex flex-col items-center justify-center">
+          <div className="flex items-center gap-2 mb-4 sm:mb-6">
+            <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#00d8ff]"></span>
+            <span className="text-[#00d8ff] font-semibold tracking-[0.3em] uppercase text-[10px] sm:text-xs md:text-sm">
+              are you ready to get next gen ai
+            </span>
+            <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-l from-transparent to-[#00d8ff]"></span>
+          </div>
+          <h1 className="text-white font-black uppercase tracking-tight leading-none text-center whitespace-nowrap text-[9vw] sm:text-[9.5vw] md:text-[10vw] lg:text-[10vw]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.8)' }}>
+            NEXTGEN AI
+          </h1>
+          <p className="mt-4 sm:mt-6 text-[#BBCCD7] font-light text-center max-w-xl md:max-w-2xl text-[clamp(0.9rem,1.5vw,1.25rem)] leading-relaxed tracking-wide" style={{ textShadow: '0 4px 10px rgba(0,0,0,0.8)' }}>
+            Pioneering the future of digital experiences through intelligent automation, visionary 3D design, and seamless interactive ecosystems.
+          </p>
+          
+          {/* Start Project Button */}
+          <div className="mt-10 sm:mt-12">
+            <a href="#contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-medium uppercase tracking-widest text-white transition-all duration-500 hover:scale-105 cursor-pointer"
+              style={{
+                background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
+                boxShadow: 'inset 4px 4px 12px #7721B1, 0px 4px 4px rgba(181, 1, 167, 0.25)',
+                border: '2px solid white'
+              }}>
+              WORK WITH US
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+      {/* Social Media Sidebar — Left Middle */}
+      <FadeIn delay={0.6} y={0} className="absolute top-1/2 -translate-y-1/2 left-6 sm:left-8 md:left-12 z-30 pointer-events-auto hidden sm:flex flex-col gap-6">
+        {[
+          { icon: InstaIcon, href: '#' },
+          { icon: LinkedinIcon, href: '#' },
+          { icon: TwitterIcon, href: '#' },
+          { icon: DribbbleIcon, href: '#' },
+        ].map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <a
+              key={i}
+              href={s.href}
+              className="hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]"
+            >
+              <Icon className="w-6 h-6" />
+            </a>
+          );
+        })}
+      </FadeIn>
+    </section>
+  );
+};
