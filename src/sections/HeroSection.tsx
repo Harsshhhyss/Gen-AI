@@ -142,8 +142,8 @@ export const HeroSection: React.FC = () => {
 
 
       {/* Hero Heading & Tagline & Button */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full mt-6 sm:mt-4 md:-mt-5 px-4">
-        <FadeIn delay={0.15} y={40} className="w-full flex flex-col items-center justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full mt-6 sm:mt-4 md:-mt-5 px-4 pointer-events-none">
+        <FadeIn delay={0.15} y={40} className="w-full flex flex-col items-center justify-center pointer-events-none">
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#00d8ff]"></span>
             <span className="text-[#00d8ff] font-semibold tracking-[0.3em] uppercase text-[10px] sm:text-xs md:text-sm">
@@ -159,7 +159,7 @@ export const HeroSection: React.FC = () => {
           </p>
           
           {/* Start Project Button */}
-          <div className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12 pointer-events-auto">
             <a href="#contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-medium uppercase tracking-widest text-white transition-all duration-500 hover:scale-105 cursor-pointer"
               style={{
                 background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',

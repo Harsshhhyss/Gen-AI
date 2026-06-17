@@ -21,6 +21,11 @@ const services = [
     number: "04",
     name: "Technical System Architecture",
     description: "Optimized, high-performance infrastructures that structurally elevate brands and consistently exceed expectations."
+  },
+  {
+    number: "05",
+    name: "Search Engine Optimization",
+    description: "Data-driven SEO strategies that improve visibility, drive organic traffic, and secure top rankings for your brand in search engines."
   }
 ];
 

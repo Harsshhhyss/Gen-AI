@@ -6,7 +6,6 @@ import { AboutSection } from './sections/AboutSection';
 import { ServicesSection } from './sections/ServicesSection';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { ContactSection } from './sections/ContactSection';
-import { Magnet } from './components/Magnet';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -65,7 +64,6 @@ function App() {
       <ProjectsSection />
       <ContactSection />
       
-      <Magnet />
     </div>
   );
 }
