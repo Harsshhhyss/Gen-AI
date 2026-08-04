@@ -27,7 +27,7 @@ export const AboutSection: React.FC = () => {
         </FadeIn>
 
         <AnimatedText 
-          text="Founded and led by Harsh Kumar Singh, NextGen AI bridges robust technical system architecture with high-end creative strategy to replace guesswork with objective, data-driven execution. We engineer premium digital ecosystems designed to expand your reach and establish market authority."
+          text="Founded and led by Harsh Kumar Singh, NextGen AI is a top-rated web development company in Pune. We bridge robust technical system architecture with high-end creative strategy to replace guesswork with objective, data-driven execution. As a full-service digital marketing agency, we engineer premium digital ecosystems designed to expand your online presence and establish market authority."
           className="text-textPrimary font-medium text-center leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)]"
         />
 

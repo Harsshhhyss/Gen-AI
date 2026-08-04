@@ -4,28 +4,28 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const services = [
   {
     number: "01",
-    name: "Responsive Website Development",
-    description: "Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience."
+    name: "Next Gen AI Website Builders",
+    description: "Designing fast, mobile-friendly, and conversion-focused websites using next gen AI technologies to maximize your online presence."
   },
   {
     number: "02",
-    name: "Targeted Social Media Advertising",
-    description: "Dynamic campaigns that add energy and storytelling to brands, expanding reach and converting attention into measurable revenue."
+    name: "Digital Marketing & Social Media",
+    description: "Targeted digital marketing campaigns that elevate your social media presence, expanding reach and converting attention into revenue."
   },
   {
     number: "03",
-    name: "Advanced Identity Design",
-    description: "Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear and memorable market authority."
+    name: "Advanced Brand Identity Design",
+    description: "Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear market authority for your business."
   },
   {
     number: "04",
-    name: "Technical System Architecture",
-    description: "Optimized, high-performance infrastructures that structurally elevate brands and consistently exceed expectations."
+    name: "Technical Web Development",
+    description: "Optimized, high-performance web applications and infrastructures that structurally elevate brands and consistently exceed expectations."
   },
   {
     number: "05",
-    name: "Search Engine Optimization",
-    description: "Data-driven SEO strategies that improve visibility, drive organic traffic, and secure top rankings for your brand in search engines."
+    name: "SEO Agency Pune Services",
+    description: "Data-driven Search Engine Optimization (SEO) strategies that improve visibility, drive organic traffic, and secure top rankings for your brand."
   }
 ];
 
