@@ -98,11 +98,7 @@ export const HeroSection: React.FC = () => {
         <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
           {/* Logo — top left */}
           <div className="flex items-center gap-3 md:gap-4 cursor-pointer hover:opacity-80 transition-opacity">
-            <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-tr from-[#7621B0] to-[#00d8ff] rounded-xl flex items-center justify-center transform rotate-12 shadow-[0_0_20px_rgba(118,33,176,0.6)]">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 md:w-9 md:h-9 text-white transform -rotate-12">
-                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
-              </svg>
-            </div>
+            <img src="/logo.png" alt="NextGen AI Logo" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain" />
           </div>
 
           {/* Right side container */}
