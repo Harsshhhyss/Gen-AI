@@ -97,7 +97,7 @@ export const HeroSection: React.FC = () => {
       <div className="fixed top-0 left-0 w-full p-6 sm:p-8 md:p-12 z-[90] pointer-events-none mix-blend-difference">
         <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
           {/* Logo — top left */}
-            <img src="/logo.png" alt="NextGen AI Logo" className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-transform hover:scale-105" />
+            <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-20 md:w-28 lg:w-36 h-auto object-contain transition-transform hover:scale-105" />
 
           {/* Right side container */}
           <div className="flex items-center">

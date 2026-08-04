@@ -116,7 +116,7 @@ export const ContactPage: React.FC = () => {
       {/* Interactive Navbar */}
       <header className="fixed top-0 inset-x-0 z-[20] px-5 sm:px-8 py-4 sm:py-5 flex flex-row justify-between items-center bg-transparent">
         <div className="flex flex-row items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.location.href = '/'}>
-          <img src="/logo.png" alt="NextGen AI Logo" className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-transform hover:scale-105" />
+          <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-16 md:w-20 lg:w-24 h-auto object-contain transition-transform hover:scale-105" />
         </div>
 
         {/* Desktop Nav Links */}
