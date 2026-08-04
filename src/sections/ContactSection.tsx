@@ -106,9 +106,8 @@ export const ContactSection: React.FC = () => {
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.div style={{ y: y1 }} className="flex-1 md:pr-10 lg:pr-20 pointer-events-auto">
             <h2 
-              className="font-bold tracking-tight text-[clamp(2.5rem,10vw,120px)] mb-8 sm:mb-12 drop-shadow-2xl"
+              className="font-bold tracking-tight text-[clamp(2.5rem,10vw,120px)] mb-8 sm:mb-12 drop-shadow-2xl text-white"
               style={{ perspective: '800px' }}
             >
               <SplitHeading text="START A" className="hero-heading block" />
@@ -117,7 +116,6 @@ export const ContactSection: React.FC = () => {
                 className="block"
               />
             </h2>
-          </motion.div>
         </motion.div>
 
         {/* ── Divider ── */}
