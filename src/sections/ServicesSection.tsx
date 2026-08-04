@@ -112,7 +112,7 @@ export const ServicesSection: React.FC = () => {
       <div ref={headingRef}>
         <motion.h2
           style={{ y: headingY, opacity: headingOpacity }}
-          className="text-[#0C0C0C] font-black uppercase text-center text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28 leading-none"
+          className="text-[#0C0C0C] font-bold tracking-tight text-center text-[clamp(2.5rem,10vw,120px)] mb-16 sm:mb-20 md:mb-28 leading-none"
         >
           Services
         </motion.h2>

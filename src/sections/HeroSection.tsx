@@ -98,7 +98,19 @@ export const HeroSection: React.FC = () => {
         <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
           {/* Logo — top left */}
           <div className="flex items-center gap-3 md:gap-4 cursor-pointer hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="NextGen AI Logo" className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain" />
+            <div 
+              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
+                backdropFilter: 'blur(24px)',
+                border: '1px solid rgba(0,216,255,0.2)',
+                borderTopColor: 'rgba(118,33,176,0.4)',
+                borderBottomColor: 'rgba(0,216,255,0.1)',
+                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
+              }}
+            >
+              <span className="text-white font-black tracking-tighter text-xl md:text-2xl lg:text-3xl" style={{ textShadow: '0 2px 10px rgba(255,255,255,0.3)' }}>NG</span>
+            </div>
           </div>
 
           {/* Right side container */}
@@ -183,21 +195,16 @@ export const HeroSection: React.FC = () => {
             </span>
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-l from-transparent to-[#00d8ff]"></span>
           </div>
-          <h1 className="text-white font-black uppercase tracking-tight leading-none text-center whitespace-nowrap text-[9vw] sm:text-[9.5vw] md:text-[10vw] lg:text-[10vw]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.8)' }}>
-            NEXTGEN AI
+          <h1 className="text-white font-bold tracking-tight leading-none text-center whitespace-nowrap text-[8vw] sm:text-[7vw] md:text-[8vw] lg:text-[7vw] drop-shadow-2xl">
+            NextGen AI
           </h1>
-          <p className="mt-4 sm:mt-6 text-[#BBCCD7] font-light text-center max-w-xl md:max-w-2xl text-[clamp(0.9rem,1.5vw,1.25rem)] leading-relaxed tracking-wide" style={{ textShadow: '0 4px 10px rgba(0,0,0,0.8)' }}>
+          <p className="mt-6 sm:mt-8 text-[#BBCCD7] font-normal text-center max-w-xl md:max-w-2xl text-[clamp(1rem,1.5vw,1.15rem)] leading-relaxed tracking-wide drop-shadow-lg">
             Your premier next gen website builder and digital marketing agency. We elevate your social media and online presence with intelligent AI websites, custom app development, and seamless interactive ecosystems.
           </p>
           
           {/* Start Project Button */}
           <div className="mt-10 sm:mt-12 pointer-events-auto">
-            <a href="#contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-medium uppercase tracking-widest text-white transition-all duration-500 hover:scale-105 cursor-pointer"
-              style={{
-                background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-                boxShadow: 'inset 4px 4px 12px #7721B1, 0px 4px 4px rgba(181, 1, 167, 0.25)',
-                border: '2px solid white'
-              }}>
+            <a href="#contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-semibold tracking-wider text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
               WORK WITH US
             </a>
           </div>

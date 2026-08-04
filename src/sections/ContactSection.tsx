@@ -106,16 +106,18 @@ export const ContactSection: React.FC = () => {
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2
-            className="font-black uppercase leading-[0.9] tracking-tighter text-[clamp(3.5rem,11vw,140px)] mb-8 sm:mb-12"
-            style={{ perspective: '800px' }}
-          >
-            <SplitHeading text="START A" className="hero-heading block" />
-            <SplitHeading
-              text="PROJECT"
-              className="block"
-            />
-          </h2>
+          <motion.div style={{ y: y1 }} className="flex-1 md:pr-10 lg:pr-20 pointer-events-auto">
+            <h2 
+              className="font-bold tracking-tight text-[clamp(2.5rem,10vw,120px)] mb-8 sm:mb-12 drop-shadow-2xl"
+              style={{ perspective: '800px' }}
+            >
+              <SplitHeading text="START A" className="hero-heading block" />
+              <SplitHeading
+                text="PROJECT"
+                className="block"
+              />
+            </h2>
+          </motion.div>
         </motion.div>
 
         {/* ── Divider ── */}
@@ -242,12 +244,14 @@ export const ContactSection: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-[#D7E2EA] font-black uppercase text-3xl sm:text-4xl leading-tight">
-                    Message<br />Received.
-                  </h3>
-                  <p className="text-[#D7E2EA]/50 font-light text-base leading-relaxed max-w-xs">
-                    We'll get back to you within 24 hours. Looking forward to creating something exceptional together.
-                  </p>
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-[#D7E2EA] font-bold tracking-tight text-3xl sm:text-4xl leading-tight drop-shadow-md">
+                      Message<br />Received.
+                    </h3>
+                    <p className="text-[#D7E2EA]/50 font-light text-base leading-relaxed max-w-xs">
+                      We'll get back to you within 24 hours. Looking forward to creating something exceptional together.
+                    </p>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
 
       <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16 z-10">
         <FadeIn delay={0} y={40}>
-          <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-center text-[clamp(3rem,12vw,160px)]">
+          <h2 className="text-white font-bold tracking-tight leading-none text-center text-[clamp(2.5rem,10vw,120px)] drop-shadow-2xl">
             About Us
           </h2>
         </FadeIn>
@@ -32,13 +32,8 @@ export const AboutSection: React.FC = () => {
         />
 
         <FadeIn delay={0.2} y={30} className="mt-16 sm:mt-20 md:mt-24">
-          <button className="rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-medium uppercase tracking-widest text-white transition-all hover:scale-105"
-            style={{
-              background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-              boxShadow: 'inset 4px 4px 12px #7721B1, 0px 4px 4px rgba(181, 1, 167, 0.25)',
-              border: '2px solid white'
-            }}>
-            Work With Us
+          <button className="rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-semibold tracking-wider text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+            WORK WITH US
           </button>
         </FadeIn>
       </div>

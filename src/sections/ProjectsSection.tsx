@@ -112,7 +112,7 @@ export const ProjectsSection: React.FC = () => {
       className="bg-background relative z-30 px-4 sm:px-6 md:px-10 pb-[20vh]"
     >
       <div className="pt-20 pb-12 text-center">
-        <h2 className="text-white font-black uppercase text-[clamp(3rem,12vw,160px)] leading-none">
+        <h2 className="text-white font-bold tracking-tight text-[clamp(2.5rem,10vw,120px)] leading-none drop-shadow-2xl">
           Projects
         </h2>
       </div>
