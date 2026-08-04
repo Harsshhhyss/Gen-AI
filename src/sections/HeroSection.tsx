@@ -98,7 +98,7 @@ export const HeroSection: React.FC = () => {
         <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
           {/* Logo — top left */}
           <div className="flex items-center gap-3 md:gap-4 cursor-pointer hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="NextGen AI Logo" className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-[0_0_15px_rgba(0,216,255,0.5)]" />
+            <img src="/logo.png" alt="NextGen AI Logo" className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain" />
           </div>
 
           {/* Right side container */}
