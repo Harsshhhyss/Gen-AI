@@ -191,7 +191,7 @@ export const HeroSection: React.FC = () => {
             NEXTGEN AI
           </h1>
           <p className="mt-4 sm:mt-6 text-[#BBCCD7] font-light text-center max-w-xl md:max-w-2xl text-[clamp(0.9rem,1.5vw,1.25rem)] leading-relaxed tracking-wide" style={{ textShadow: '0 4px 10px rgba(0,0,0,0.8)' }}>
-            Your premier next gen website builder and digital marketing agency. We elevate your social media and online presence with intelligent AI websites, visionary 3D design, and seamless interactive ecosystems.
+            Your premier next gen website builder and digital marketing agency. We elevate your social media and online presence with intelligent AI websites, custom app development, and seamless interactive ecosystems.
           </p>
           
           {/* Start Project Button */}
