@@ -117,7 +117,7 @@ export const ContactPage: React.FC = () => {
       <header className="fixed top-0 inset-x-0 z-[20] px-5 sm:px-8 py-4 sm:py-5 flex flex-row justify-between items-center bg-transparent">
         {/* Logo */}
         <div className="flex flex-row items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.location.href = '/'}>
-          <img src="/logo.png" alt="NextGen AI Logo" className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain" />
+          <img src="/logo.png" alt="NextGen AI Logo" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-[0_0_15px_rgba(0,216,255,0.5)]" />
         </div>
 
         {/* Desktop Nav Links */}
