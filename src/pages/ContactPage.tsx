@@ -115,21 +115,8 @@ export const ContactPage: React.FC = () => {
 
       {/* Interactive Navbar */}
       <header className="fixed top-0 inset-x-0 z-[20] px-5 sm:px-8 py-4 sm:py-5 flex flex-row justify-between items-center bg-transparent">
-        {/* Logo */}
         <div className="flex flex-row items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.location.href = '/'}>
-            <div 
-              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
-                backdropFilter: 'blur(24px)',
-                border: '1px solid rgba(0,216,255,0.2)',
-                borderTopColor: 'rgba(118,33,176,0.4)',
-                borderBottomColor: 'rgba(0,216,255,0.1)',
-                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
-              }}
-            >
-              <span className="text-white font-black tracking-tighter text-xl md:text-2xl lg:text-3xl" style={{ textShadow: '0 2px 10px rgba(255,255,255,0.3)' }}>NG</span>
-            </div>
+          <img src="/logo.png" alt="NextGen AI Logo" className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-transform hover:scale-105" />
         </div>
 
         {/* Desktop Nav Links */}

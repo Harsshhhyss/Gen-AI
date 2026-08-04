@@ -97,21 +97,7 @@ export const HeroSection: React.FC = () => {
       <div className="fixed top-0 left-0 w-full p-6 sm:p-8 md:p-12 z-[90] pointer-events-none mix-blend-difference">
         <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
           {/* Logo — top left */}
-          <div className="flex items-center gap-3 md:gap-4 cursor-pointer hover:opacity-80 transition-opacity">
-            <div 
-              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
-                backdropFilter: 'blur(24px)',
-                border: '1px solid rgba(0,216,255,0.2)',
-                borderTopColor: 'rgba(118,33,176,0.4)',
-                borderBottomColor: 'rgba(0,216,255,0.1)',
-                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
-              }}
-            >
-              <span className="text-white font-black tracking-tighter text-xl md:text-2xl lg:text-3xl" style={{ textShadow: '0 2px 10px rgba(255,255,255,0.3)' }}>NG</span>
-            </div>
-          </div>
+            <img src="/logo.png" alt="NextGen AI Logo" className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-transform hover:scale-105" />
 
           {/* Right side container */}
           <div className="flex items-center">
