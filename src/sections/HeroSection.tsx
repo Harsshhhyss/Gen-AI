@@ -181,8 +181,8 @@ export const HeroSection: React.FC = () => {
             </span>
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-l from-transparent to-[#00d8ff]"></span>
           </div>
-          <h1 className="text-white font-black uppercase tracking-tighter leading-none text-center whitespace-nowrap text-[12vw] sm:text-[9.5vw] md:text-[10vw] lg:text-[10vw]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.8)' }}>
-            NEXTGEN AI
+          <h1 className="text-white font-bold tracking-tight leading-none text-center whitespace-nowrap text-[11vw] sm:text-[10vw] md:text-[11vw] lg:text-[10vw] drop-shadow-2xl">
+            NextGen AI
           </h1>
           <p className="mt-6 sm:mt-8 text-[#BBCCD7] font-normal text-center max-w-xl md:max-w-2xl text-[clamp(1rem,1.5vw,1.15rem)] leading-relaxed tracking-wide drop-shadow-lg">
             Your premier next gen website builder and digital marketing agency. We elevate your social media and online presence with intelligent AI websites, custom app development, and seamless interactive ecosystems.
