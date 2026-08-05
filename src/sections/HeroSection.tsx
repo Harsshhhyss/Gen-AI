@@ -177,7 +177,7 @@ export const HeroSection: React.FC = () => {
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#00d8ff]"></span>
             <span className="text-[#00d8ff] font-semibold tracking-[0.3em] uppercase text-[10px] sm:text-xs md:text-sm">
-              get next gen | top website makers in pune
+              get next gen
             </span>
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-l from-transparent to-[#00d8ff]"></span>
           </div>
