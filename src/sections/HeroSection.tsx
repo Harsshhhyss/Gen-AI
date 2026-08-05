@@ -100,7 +100,7 @@ export const HeroSection: React.FC = () => {
             <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-20 md:w-28 lg:w-36 h-auto object-contain transition-transform hover:scale-105" />
 
           {/* Right side container */}
-          <div className="flex items-center">
+          <div className="flex items-center mix-blend-difference">
             {/* Floating pill nav — top right */}
             <div className="hidden md:flex items-center gap-2 rounded-full px-3 py-2.5"
               style={{
