@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
 
       <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16 z-10">
         <FadeIn delay={0} y={40}>
-          <h2 className="text-white font-bold tracking-tight leading-none text-center text-[clamp(2.5rem,10vw,120px)] drop-shadow-2xl">
+          <h2 className="text-white font-black uppercase tracking-tighter leading-none text-center text-[clamp(3.5rem,12vw,160px)] drop-shadow-2xl">
             About Us
           </h2>
         </FadeIn>

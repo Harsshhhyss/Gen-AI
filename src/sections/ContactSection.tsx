@@ -107,7 +107,7 @@ export const ContactSection: React.FC = () => {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
             <h2 
-              className="font-bold tracking-tight text-[clamp(2.5rem,10vw,120px)] mb-8 sm:mb-12 drop-shadow-2xl text-white"
+              className="font-black uppercase tracking-tighter text-[clamp(3.5rem,11vw,140px)] mb-8 sm:mb-12 text-white drop-shadow-2xl"
               style={{ perspective: '800px' }}
             >
               <SplitHeading text="START A" className="hero-heading block" />
