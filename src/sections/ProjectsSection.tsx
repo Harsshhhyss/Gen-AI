@@ -77,17 +77,30 @@ const Card = ({ project, i, sectionProgress }: { project: typeof projects[0], i:
             )}
           </div>
 
-          {/* Images Grid */}
-          <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 h-[40vh] md:h-[55vh]">
-            <div className="col-span-1 md:col-span-2 flex flex-col gap-3 sm:gap-4 h-full">
-              <div className="flex-1 rounded-xl sm:rounded-2xl overflow-hidden bg-white/5">
+          {/* Images Grid - Mobile Carousel */}
+          <div className="flex md:hidden flex-1 overflow-x-auto gap-3 h-[45vh] snap-x snap-mandatory hide-scrollbar">
+            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
+              <img src={project.images.col1_1} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
+              <img src={project.images.col1_2} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
+              <img src={project.images.col2} alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          {/* Images Grid - Desktop Grid */}
+          <div className="hidden md:grid flex-1 grid-cols-5 gap-4 h-[55vh]">
+            <div className="col-span-2 flex flex-col gap-4 h-full">
+              <div className="flex-1 rounded-2xl overflow-hidden bg-white/5">
                 <img src={project.images.col1_1} alt="" className="w-full h-full object-cover" />
               </div>
-              <div className="flex-1 rounded-xl sm:rounded-2xl overflow-hidden bg-white/5">
+              <div className="flex-1 rounded-2xl overflow-hidden bg-white/5">
                 <img src={project.images.col1_2} alt="" className="w-full h-full object-cover" />
               </div>
             </div>
-            <div className="col-span-1 md:col-span-3 rounded-xl sm:rounded-2xl overflow-hidden bg-white/5 h-full">
+            <div className="col-span-3 rounded-2xl overflow-hidden bg-white/5 h-full">
               <img src={project.images.col2} alt="" className="w-full h-full object-cover" />
             </div>
           </div>
