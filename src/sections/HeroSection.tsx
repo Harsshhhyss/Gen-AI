@@ -184,8 +184,8 @@ export const HeroSection: React.FC = () => {
           <h1 className="text-white font-bold tracking-tight leading-none text-center whitespace-nowrap text-[11vw] sm:text-[10vw] md:text-[11vw] lg:text-[10vw] drop-shadow-2xl">
             NextGen AI
           </h1>
-          <p className="mt-6 sm:mt-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8B9CAF] font-light text-center max-w-xl md:max-w-3xl lg:max-w-4xl text-[clamp(1.1rem,1.5vw,1.3rem)] leading-relaxed tracking-wide drop-shadow-lg">
-            Your premier next-gen website builder and digital marketing agency. We elevate your online presence <br className="hidden md:block" /> with intelligent AI websites, custom app development, and seamless interactive ecosystems.
+          <p className="mt-6 sm:mt-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8B9CAF] font-light text-center max-w-3xl lg:max-w-4xl text-[clamp(0.9rem,1vw,1.1rem)] leading-relaxed tracking-wide drop-shadow-lg mx-auto">
+            Your premier next-gen website builder and digital marketing agency. We elevate your online presence with intelligent AI websites, custom app development, and seamless interactive ecosystems.
           </p>
           
           {/* Start Project Button */}
