@@ -109,13 +109,19 @@ export const ServicesSection: React.FC = () => {
       className="bg-white rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20"
     >
       {/* Heading scroll reveal */}
-      <div ref={headingRef}>
+      <div ref={headingRef} className="flex flex-col items-center mb-16 sm:mb-20 md:mb-28">
         <motion.h2
           style={{ y: headingY, opacity: headingOpacity }}
-          className="text-[#0C0C0C] font-bold tracking-tight text-center text-[clamp(2.5rem,10vw,120px)] mb-16 sm:mb-20 md:mb-28 leading-none"
+          className="text-[#0C0C0C] font-bold tracking-tight text-center text-[clamp(2.5rem,10vw,120px)] leading-none mb-4 sm:mb-6"
         >
           Services
         </motion.h2>
+        <motion.p
+          style={{ y: headingY, opacity: headingOpacity }}
+          className="text-[#0C0C0C]/60 text-center max-w-2xl text-[clamp(1rem,1.5vw,1.25rem)] font-light leading-relaxed px-4"
+        >
+          End-to-end digital solutions designed to elevate your brand and scale your online presence.
+        </motion.p>
       </div>
 
       {/* Service items */}
