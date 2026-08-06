@@ -50,13 +50,35 @@ export const ContactSection: React.FC = () => {
   // Gradient orb movement
   const orbY = useTransform(scrollYProgress, [0, 1], [200, -80]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      projectDetails: formData.get('message'),
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        setSent(true);
+      } else {
+        console.error('Failed to send message');
+        // Fallback or show error in a real app
+      }
+    } catch (err) {
+      console.error('Error sending message:', err);
+    } finally {
       setSending(false);
-      setSent(true);
-    }, 1800);
+    }
   };
 
   const inputClass = (name: string) =>
@@ -152,6 +174,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         required
                         type="text"
+                        name="name"
                         placeholder="Your name"
                         className={inputClass('name')}
                         onFocus={() => setFocused('name')}
@@ -163,6 +186,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         required
                         type="tel"
+                        name="phone"
                         placeholder="+91 00000 00000"
                         className={inputClass('number')}
                         onFocus={() => setFocused('number')}
@@ -177,6 +201,7 @@ export const ContactSection: React.FC = () => {
                     </label>
                     <textarea
                       rows={4}
+                      name="message"
                       placeholder="Tell us about your project..."
                       className={`${inputClass('message')} resize-none`}
                       onFocus={() => setFocused('message')}
