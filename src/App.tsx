@@ -7,6 +7,7 @@ import { ServicesSection } from './sections/ServicesSection';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { ContactSection } from './sections/ContactSection';
 import { Chatbot } from './components/Chatbot';
+import { ContactPopup } from './components/ContactPopup';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -64,8 +65,8 @@ function App() {
       <ServicesSection />
       <ProjectsSection />
       <ContactSection />
-      
       <Chatbot />
+      <ContactPopup />
     </div>
   );
 }

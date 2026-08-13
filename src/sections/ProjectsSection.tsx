@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 
 const projects = [
   {
@@ -38,7 +39,7 @@ const projects = [
   }
 ];
 
-const Card = ({ project, i, sectionProgress }: { project: typeof projects[0], i: number, sectionProgress: any }) => {
+const Card = ({ project, i, sectionProgress, onClick }: { project: typeof projects[0], i: number, sectionProgress: any, onClick: () => void }) => {
   const start = i / projects.length;
   const end = (i + 1) / projects.length;
 
@@ -49,14 +50,15 @@ const Card = ({ project, i, sectionProgress }: { project: typeof projects[0], i:
     <div className="h-screen w-full flex justify-center sticky top-0 items-start pt-[12vh]">
       <motion.div
         style={{ scale, opacity, transformOrigin: 'top center', top: `${i * 35}px` }}
-        className="relative w-full max-w-6xl rounded-[32px] overflow-hidden border border-white/10"
+        className="relative w-full max-w-6xl rounded-[32px] overflow-hidden border border-white/10 group cursor-pointer"
+        onClick={onClick}
       >
         <div
           className="w-full p-6 md:p-8 flex flex-col gap-6"
           style={{ backgroundColor: project.color, minHeight: '80vh' }}
         >
           {/* Header Row */}
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between z-10">
             <div className="flex items-center gap-4 md:gap-6">
               <span className="font-black text-[clamp(3.5rem,9vw,110px)] text-white leading-none tracking-tighter">
                 {project.number}
@@ -65,44 +67,21 @@ const Card = ({ project, i, sectionProgress }: { project: typeof projects[0], i:
                 <span className="text-white/50 text-[11px] sm:text-sm font-medium tracking-[0.2em] uppercase">
                   {project.client}
                 </span>
-                <h3 className="text-white font-semibold text-xl sm:text-2xl md:text-3xl tracking-tight">
+                <h3 className="text-white font-semibold text-xl sm:text-2xl md:text-3xl tracking-tight group-hover:text-[#00d8ff] transition-colors duration-300">
                   {project.name}
                 </h3>
               </div>
             </div>
-            {project.link && (
-              <a href={project.link} target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 border border-white/30 rounded-full px-5 py-2 text-[11px] font-semibold tracking-[0.2em] text-white uppercase hover:bg-white hover:text-black transition-all duration-300 mt-2">
-                Live Project
-              </a>
-            )}
-          </div>
-
-          {/* Images Grid - Mobile Carousel */}
-          <div className="flex md:hidden flex-1 overflow-x-auto gap-3 h-[45vh] snap-x snap-mandatory hide-scrollbar">
-            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
-              <img src={project.images.col1_1} alt="" className="w-full h-full object-cover" />
-            </div>
-            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
-              <img src={project.images.col1_2} alt="" className="w-full h-full object-cover" />
-            </div>
-            <div className="min-w-[85%] rounded-xl overflow-hidden bg-white/5 h-full snap-center shrink-0">
-              <img src={project.images.col2} alt="" className="w-full h-full object-cover" />
+            
+            <div className="hidden md:flex items-center gap-2 border border-white/30 rounded-full px-5 py-2 text-[11px] font-semibold tracking-[0.2em] text-white uppercase group-hover:bg-white group-hover:text-black transition-all duration-300 mt-2">
+              View Project
             </div>
           </div>
 
-          {/* Images Grid - Desktop Grid */}
-          <div className="hidden md:grid flex-1 grid-cols-5 gap-4 h-[55vh]">
-            <div className="col-span-2 flex flex-col gap-4 h-full">
-              <div className="flex-1 rounded-2xl overflow-hidden bg-white/5">
-                <img src={project.images.col1_1} alt="" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex-1 rounded-2xl overflow-hidden bg-white/5">
-                <img src={project.images.col1_2} alt="" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div className="col-span-3 rounded-2xl overflow-hidden bg-white/5 h-full">
-              <img src={project.images.col2} alt="" className="w-full h-full object-cover" />
-            </div>
+          {/* Single Cover Image */}
+          <div className="flex-1 rounded-2xl overflow-hidden bg-white/5 relative">
+            <img src={project.images.col2} alt={project.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
           </div>
         </div>
       </motion.div>
@@ -112,11 +91,22 @@ const Card = ({ project, i, sectionProgress }: { project: typeof projects[0], i:
 
 export const ProjectsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end']
   });
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [selectedProject]);
 
   return (
     <section
@@ -137,9 +127,109 @@ export const ProjectsSection: React.FC = () => {
             project={project}
             i={i}
             sectionProgress={scrollYProgress}
+            onClick={() => setSelectedProject(project)}
           />
         ))}
       </div>
+
+      {/* Project Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 md:p-12 bg-black/80 backdrop-blur-md"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-6xl h-full max-h-[90vh] rounded-[32px] overflow-hidden flex flex-col"
+              style={{ backgroundColor: selectedProject.color }}
+              onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from closing it
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 md:p-8 shrink-0">
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-white/50 text-[11px] sm:text-sm font-medium tracking-[0.2em] uppercase">
+                      {selectedProject.client}
+                    </span>
+                    <h3 className="text-white font-semibold text-2xl md:text-4xl tracking-tight">
+                      {selectedProject.name}
+                    </h3>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  {selectedProject.link && (
+                    <a 
+                      href={selectedProject.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="hidden sm:flex items-center gap-2 bg-[#00d8ff] text-black rounded-full px-6 py-2.5 text-xs font-bold tracking-[0.2em] uppercase hover:bg-white transition-colors duration-300"
+                    >
+                      Visit Live Site
+                    </a>
+                  )}
+                  <button 
+                    onClick={() => setSelectedProject(null)}
+                    className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Gallery */}
+              <div className="flex-1 overflow-y-auto p-6 md:p-8 pt-0 custom-scrollbar">
+                
+                {selectedProject.link && (
+                  <a 
+                    href={selectedProject.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="sm:hidden flex items-center justify-center w-full mb-6 gap-2 bg-[#00d8ff] text-black rounded-full px-6 py-3 text-xs font-bold tracking-[0.2em] uppercase hover:bg-white transition-colors duration-300"
+                  >
+                    Visit Live Site
+                  </a>
+                )}
+
+                {/* Mobile Carousel / Desktop Grid inside Modal */}
+                <div className="flex md:hidden flex-1 overflow-x-auto gap-4 snap-x snap-mandatory hide-scrollbar pb-4">
+                  <div className="min-w-[85%] rounded-2xl overflow-hidden bg-white/5 h-[60vh] snap-center shrink-0">
+                    <img src={selectedProject.images.col1_1} alt="" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="min-w-[85%] rounded-2xl overflow-hidden bg-white/5 h-[60vh] snap-center shrink-0">
+                    <img src={selectedProject.images.col1_2} alt="" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="min-w-[85%] rounded-2xl overflow-hidden bg-white/5 h-[60vh] snap-center shrink-0">
+                    <img src={selectedProject.images.col2} alt="" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+
+                <div className="hidden md:grid flex-1 grid-cols-5 gap-6 min-h-[60vh]">
+                  <div className="col-span-2 flex flex-col gap-6 h-full">
+                    <div className="flex-1 rounded-3xl overflow-hidden bg-white/5">
+                      <img src={selectedProject.images.col1_1} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex-1 rounded-3xl overflow-hidden bg-white/5">
+                      <img src={selectedProject.images.col1_2} alt="" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div className="col-span-3 rounded-3xl overflow-hidden bg-white/5 h-full">
+                    <img src={selectedProject.images.col2} alt="" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
