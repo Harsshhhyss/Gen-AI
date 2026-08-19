@@ -100,16 +100,15 @@ export const HeroSection: React.FC = () => {
             <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-20 md:w-28 lg:w-36 h-auto object-contain transition-transform hover:scale-105" />
 
           {/* Right side container */}
-          <div className="flex items-center mix-blend-difference">
+          <div className="flex items-center">
             {/* Floating pill nav — top right */}
             <div className="hidden md:flex items-center gap-2 rounded-full px-3 py-2.5"
               style={{
-                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
+                background: 'rgba(12, 12, 12, 0.6)',
                 backdropFilter: 'blur(24px)',
-                border: '1px solid rgba(0,216,255,0.2)',
-                borderTopColor: 'rgba(118,33,176,0.4)',
-                borderBottomColor: 'rgba(0,216,255,0.1)',
-                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
+                WebkitBackdropFilter: 'blur(24px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
               }}>
               {['About', 'Services', 'Projects', 'Contact'].map((link) => (
                 <a
