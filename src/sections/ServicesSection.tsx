@@ -4,28 +4,28 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const services = [
   {
     number: "01",
-    name: "Next Gen AI Website Builders",
-    description: "Designing fast, mobile-friendly, and conversion-focused websites using next gen AI technologies to maximize your online presence."
+    name: "Full-Scale SaaS Architecture",
+    description: "Designing and developing robust, scalable Software-as-a-Service platforms. We handle everything from complex backend infrastructures to intuitive frontend experiences."
   },
   {
     number: "02",
-    name: "Digital Marketing & Social Media",
-    description: "Targeted digital marketing campaigns that elevate your social media presence, expanding reach and converting attention into revenue."
+    name: "Intelligent AI Solutions",
+    description: "Integrating cutting-edge Artificial Intelligence into your workflows. From automated customer support bots to predictive data analytics, we build AI that drives real ROI."
   },
   {
     number: "03",
-    name: "Advanced Brand Identity Design",
-    description: "Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear market authority for your business."
+    name: "Digital Growth & Marketing",
+    description: "Executing data-driven acquisition strategies. We leverage advanced SEO, targeted paid media, and automated marketing funnels to aggressively scale your client base."
   },
   {
     number: "04",
-    name: "Technical Web Development",
-    description: "Optimized, high-performance web applications and infrastructures that structurally elevate brands and consistently exceed expectations."
+    name: "Custom Application Development",
+    description: "Building bespoke web and mobile applications engineered for performance. We transform complex operational challenges into streamlined digital ecosystems."
   },
   {
     number: "05",
-    name: "SEO Agency Pune Services",
-    description: "Data-driven Search Engine Optimization (SEO) strategies that improve visibility, drive organic traffic, and secure top rankings for your brand."
+    name: "Brand Identity & UX/UI",
+    description: "Crafting cohesive visual identities and seamless user experiences. We design interfaces that not only look premium but are optimized for user retention and conversion."
   }
 ];
 

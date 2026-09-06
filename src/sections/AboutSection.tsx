@@ -27,8 +27,8 @@ export const AboutSection: React.FC = () => {
         </FadeIn>
 
         <AnimatedText 
-          text="Founded and led by Harsh Kumar Singh, NextGen AI is the top digital marketing agency and website builder in Pune. Serving businesses across Lohegaon, Viman Nagar, and beyond, we specialize in custom app development, high-performance websites, and explosive brand growth. We provide the best AI solutions in Pune and intelligent business automation to expand your online presence and establish market authority."
-          className="text-textPrimary font-medium text-center leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)]"
+          text="Founded and led by Harsh Kumar Singh, NextGen AI is a premier technology partner specializing in full-scale SaaS development, cutting-edge AI solutions, and comprehensive digital growth. Serving forward-thinking businesses globally, we engineer high-performance platforms, automate complex workflows, and execute data-driven strategies to establish your market authority."
+          className="text-textPrimary font-medium text-center leading-relaxed max-w-[600px] text-[clamp(1rem,2vw,1.35rem)]"
         />
 
         <FadeIn delay={0.2} y={30} className="mt-16 sm:mt-20 md:mt-24">
