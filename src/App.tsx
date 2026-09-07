@@ -8,6 +8,7 @@ import { ProjectsSection } from './sections/ProjectsSection';
 import { ContactSection } from './sections/ContactSection';
 import { Chatbot } from './components/Chatbot';
 import { ContactPopup } from './components/ContactPopup';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -66,6 +67,7 @@ function App() {
       <ProjectsSection />
       <ContactSection />
       <Chatbot />
+      <FloatingWhatsApp />
       <ContactPopup />
     </div>
   );

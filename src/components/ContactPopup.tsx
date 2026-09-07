@@ -26,9 +26,9 @@ export const ContactPopup: React.FC = () => {
   const handleAction = () => {
     setIsOpen(false);
     setHasDismissed(true);
-    // Use timeout to allow modal close animation before scrolling
+    // Use timeout to allow modal close animation before opening URL
     setTimeout(() => {
-      window.location.href = '#contact';
+      window.open("https://wa.me/917385750187?text=Hi%20NextGen%20AI!%20I'm%20interested%20in%20discussing%20a%20project.", '_blank');
     }, 300);
   };
 
