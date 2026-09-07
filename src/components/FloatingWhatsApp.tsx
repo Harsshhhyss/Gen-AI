@@ -20,7 +20,7 @@ export const FloatingWhatsApp = () => {
       transition={{ delay: 1, type: "spring", stiffness: 200, damping: 20 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 right-6 z-[999] bg-[#FAF9F6] text-[#25D366] p-3 sm:p-3.5 rounded-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.4)] flex items-center justify-center cursor-pointer group hover:scale-105 transition-all"
+      className="fixed bottom-36 right-6 z-[999] bg-[#FAF9F6] text-[#25D366] p-3 sm:p-3.5 rounded-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.4)] flex items-center justify-center cursor-pointer group hover:scale-105 transition-all"
       aria-label="Chat on WhatsApp"
     >
       <WhatsAppIcon className="w-8 h-8 sm:w-9 sm:h-9" />
