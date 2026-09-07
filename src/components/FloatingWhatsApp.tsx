@@ -20,10 +20,10 @@ export const FloatingWhatsApp = () => {
       transition={{ delay: 1, type: "spring", stiffness: 200, damping: 20 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 right-6 z-[999] bg-[#25D366] text-white p-3.5 sm:p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.4)] flex items-center justify-center cursor-pointer group"
+      className="fixed bottom-6 right-6 z-[999] bg-[#FAF9F6] text-[#25D366] p-3 sm:p-3.5 rounded-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.4)] flex items-center justify-center cursor-pointer group hover:scale-105 transition-all"
       aria-label="Chat on WhatsApp"
     >
-      <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+      <WhatsAppIcon className="w-8 h-8 sm:w-9 sm:h-9" />
       
       {/* Tooltip */}
       <span className="absolute right-full mr-4 bg-white text-black text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-xl">
