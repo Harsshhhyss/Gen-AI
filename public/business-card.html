@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextGen AI — Professional Executive Business Card</title>
+  <link rel="icon" type="image/png" href="/favicon-max.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080E;
+      --card-w: 630px;
+      --card-h: 360px;
+      --purple: #9D00FF;
+      --cyan: #00D8FF;
+      --purple-glow: rgba(157, 0, 255, 0.45);
+      --border-grad: linear-gradient(135deg, rgba(0,216,255,0.7), rgba(157,0,255,0.9), rgba(255,255,255,0.4));
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #170B28 0%, #08060B 80%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #FFFFFF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    .header-bar {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(157, 0, 255, 0.15);
+      border: 1px solid rgba(157, 0, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #D88AFF;
+      margin-bottom: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00D8FF;
+      box-shadow: 0 0 10px #00D8FF;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      color: #8C8A9B;
+      margin-top: 4px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7C00E0 0%, #B800FF 100%);
+      border: none;
+      box-shadow: 0 4px 20px rgba(157, 0, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #8F15F0 0%, #C820FF 100%);
+      box-shadow: 0 6px 25px rgba(157, 0, 255, 0.6);
+    }
+
+    .cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      perspective: 1200px;
+      width: 100%;
+      max-width: 900px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .cards-container {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    /* CARD STYLES */
+    .card-wrap {
+      width: 100%;
+      max-width: var(--card-w);
+      height: var(--card-h);
+      position: relative;
+      border-radius: 20px;
+      padding: 2px;
+      background: var(--border-grad);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
+                  0 0 30px rgba(157, 0, 255, 0.25);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+
+    .card-wrap:hover {
+      transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+      box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.9),
+                  0 0 45px rgba(157, 0, 255, 0.45);
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      background: #0B0A11;
+      border-radius: 18px;
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Ambient Circuit Graphics */
+    .circuit-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: radial-gradient(#9D00FF 1px, transparent 1px),
+                        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px, 12px 12px, 12px 12px;
+    }
+
+    .hologram-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(157,0,255,0.2) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    /* FRONT CARD */
+    .front-card {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .front-logo-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .front-logo-img {
+      width: 140px;
+      height: auto;
+      filter: drop-shadow(0 0 25px rgba(0, 216, 255, 0.4))
+              drop-shadow(0 0 35px rgba(157, 0, 255, 0.5));
+      transition: transform 0.3s ease;
+    }
+
+    .front-logo-img:hover {
+      transform: scale(1.04);
+    }
+
+    .front-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .front-title span {
+      background: linear-gradient(135deg, #00D8FF 0%, #B800FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .front-tagline {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8E8A9E;
+      margin-top: 4px;
+    }
+
+    .front-bottom-accent {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00D8FF, #9D00FF, transparent);
+    }
+
+    /* BACK CARD */
+    .back-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .person-info h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+
+    .person-info .role {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #00D8FF;
+      margin-top: 4px;
+    }
+
+    .mini-logo {
+      width: 48px;
+      height: auto;
+      opacity: 0.9;
+    }
+
+    .back-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, #9D00FF 0%, rgba(157,0,255,0.2) 60%, transparent 100%);
+      margin: 12px 0 16px 0;
+      position: relative;
+    }
+
+    .back-divider::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -2px;
+      width: 30px;
+      height: 5px;
+      border-radius: 999px;
+      background: #00D8FF;
+      box-shadow: 0 0 8px #00D8FF;
+    }
+
+    .back-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #E2DFEB;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-item:hover {
+      color: #00D8FF;
+      transform: translateX(3px);
+    }
+
+    .icon-box {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: rgba(157, 0, 255, 0.15);
+      border: 1px solid rgba(157, 0, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00D8FF;
+      flex-shrink: 0;
+    }
+
+    .icon-box svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qr-box {
+      width: 80px;
+      height: 80px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 6px;
+      box-shadow: 0 0 20px rgba(157, 0, 255, 0.35),
+                  0 0 0 1px rgba(0, 216, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .qr-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8C8A9B;
+    }
+
+    /* WHITE CERAMIC THEME VARIANT */
+    body.theme-white .card-wrap {
+      --border-grad: linear-gradient(135deg, rgba(157,0,255,0.8), rgba(0,216,255,0.6), rgba(20,20,20,0.2));
+      box-shadow: 0 25px 50px -12px rgba(157, 0, 255, 0.2), 0 0 35px rgba(0, 216, 255, 0.2);
+    }
+
+    body.theme-white .front-card {
+      background: linear-gradient(145deg, #FFFFFF 0%, #F5F3F9 100%);
+    }
+
+    body.theme-white .front-title {
+      color: #0C0A14;
+    }
+
+    body.theme-white .front-tagline {
+      color: #6C667D;
+    }
+
+    body.theme-white .circuit-bg {
+      opacity: 0.08;
+      background-image: radial-gradient(#6B00B0 1.2px, transparent 1.2px);
+    }
+
+    /* PRINT RULES */
+    @media print {
+      body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .header-bar, .controls, .preview-section {
+        display: none !important;
+      }
+
+      .cards-container {
+        flex-direction: column !important;
+        gap: 20mm !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .card-wrap {
+        width: 3.5in !important;
+        height: 2in !important;
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Executive Identity · Print & Digital Ready
+    </div>
+    <h1>NextGen AI Executive Business Card</h1>
+    <p class="subtitle">Designed with cybernetic obsidian, ceramic white & glowing purple accents</p>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" onclick="window.print()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+      Print / Save PDF (3.5" × 2")
+    </button>
+    <button class="btn" onclick="toggleTheme()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      Switch Obsidian / Ceramic Theme
+    </button>
+    <a class="btn" href="tel:+917385750187">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      Call Founder
+    </a>
+    <a class="btn" href="https://wa.me/917385750187" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <div class="cards-container">
+    
+    <!-- FRONT OF CARD -->
+    <div class="card-wrap">
+      <div class="card front-card">
+        <div class="circuit-bg"></div>
+        <div class="hologram-glow"></div>
+
+        <div class="front-logo-box">
+          <img src="/logo-cropped.png" alt="NextGen AI" class="front-logo-img">
+          <div class="front-title">
+            NextGen <span>AI</span>
+          </div>
+          <div class="front-tagline">
+            SaaS Architecture · Custom AI · Digital Growth
+          </div>
+        </div>
+
+        <div class="front-bottom-accent"></div>
+      </div>
+    </div>
+
+    <!-- BACK OF CARD -->
+    <div class="card-wrap">
+      <div class="card back-card">
+        <div class="circuit-bg"></div>
+        <div class="hologram-glow" style="left:-100px; top:auto; bottom:-100px;"></div>
+
+        <div>
+          <div class="back-top">
+            <div class="person-info">
+              <h2>Harsh Kumar Singh</h2>
+              <div class="role">Founder & Managing Director</div>
+            </div>
+            <img src="/logo-cropped.png" alt="NG" class="mini-logo">
+          </div>
+
+          <div class="back-divider"></div>
+        </div>
+
+        <div class="back-body">
+          <div class="contact-list">
+            <a href="tel:+917385750187" class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <span>+91 73857 50187</span>
+            </a>
+
+            <a href="mailto:aigetnextgen@gmail.com" class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              </div>
+              <span>aigetnextgen@gmail.com</span>
+            </a>
+
+            <a href="https://www.getnextgen.in" target="_blank" class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <span>www.getnextgen.in</span>
+            </a>
+
+            <div class="contact-item">
+              <div class="icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span>Pune, Maharashtra · Global</span>
+            </div>
+          </div>
+
+          <div class="qr-container">
+            <div class="qr-box">
+              <!-- High-res QR code generated dynamically for getnextgen.in -->
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://www.getnextgen.in&color=000000&bgcolor=FFFFFF" alt="Scan QR">
+            </div>
+            <span class="qr-label">Scan Website</span>
+          </div>
+        </div>
+
+        <div class="front-bottom-accent"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('theme-white');
+    }
+  </script>
+</body>
+</html>
