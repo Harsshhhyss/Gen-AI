@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HeroSection } from './sections/HeroSection';
-import { MarqueeSection } from './sections/MarqueeSection';
-import { AboutSection } from './sections/AboutSection';
-import { ServicesSection } from './sections/ServicesSection';
-import { ProjectsSection } from './sections/ProjectsSection';
-import { ContactSection } from './sections/ContactSection';
+
+// Global Layout Components
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 import { Chatbot } from './components/Chatbot';
 import { ContactPopup } from './components/ContactPopup';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+
+// Multi-Page Routes
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { FAQPage } from './pages/FAQPage';
+import { ContactPage } from './pages/ContactPage';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -40,11 +48,10 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Prevent scrolling while loading
+  // Prevent scrolling while preloader runs on first load
   useEffect(() => {
     if (loading) {
       document.body.style.overflow = 'hidden';
-      // Fallback in case animation fails to trigger completion
       const timer = setTimeout(() => {
         setLoading(false);
       }, 3500);
@@ -55,21 +62,38 @@ function App() {
   }, [loading]);
 
   return (
-    <div className="w-full bg-background min-h-screen text-textPrimary font-sans">
-      <AnimatePresence mode="wait">
-        {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
-      
-      <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <ContactSection />
-      <Chatbot />
-      <FloatingWhatsApp />
-      <ContactPopup />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="w-full bg-background min-h-screen text-textPrimary font-sans flex flex-col justify-between">
+        <AnimatePresence mode="wait">
+          {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
+        </AnimatePresence>
+
+        {/* Global Floating Glassmorphic Navbar */}
+        <Navbar />
+
+        {/* Dynamic Route View */}
+        <main className="flex-1 w-full">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </main>
+
+        {/* Unified Luxury Global Footer */}
+        <Footer />
+
+        {/* Global Interactive Elements */}
+        <Chatbot />
+        <FloatingWhatsApp />
+        <ContactPopup />
+      </div>
+    </BrowserRouter>
   );
 }
 

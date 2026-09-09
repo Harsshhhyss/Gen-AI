@@ -1,9 +1,9 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/FadeIn';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, MeshDistortMaterial, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';
-import { motion, AnimatePresence } from 'framer-motion';const InstaIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><defs><linearGradient id="insta-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f09433" /><stop offset="25%" stopColor="#e6683c" /><stop offset="50%" stopColor="#dc2743" /><stop offset="75%" stopColor="#cc2366" /><stop offset="100%" stopColor="#bc1888" /></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#insta-grad)"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#insta-grad)"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#insta-grad)"></line></svg>;
+import * as THREE from 'three';const InstaIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><defs><linearGradient id="insta-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f09433" /><stop offset="25%" stopColor="#e6683c" /><stop offset="50%" stopColor="#dc2743" /><stop offset="75%" stopColor="#cc2366" /><stop offset="100%" stopColor="#bc1888" /></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#insta-grad)"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#insta-grad)"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#insta-grad)"></line></svg>;
 const LinkedinIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
 const TwitterIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#1DA1F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>;
 const YoutubeIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.17 1 12 1 12s0 3.83.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.83 23 12 23 12s0-3.83-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#FF0000"></polygon></svg>;
@@ -80,10 +80,8 @@ const ParticleCore = () => {
 };
 
 export const HeroSection: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   return (
-    <section className="h-screen w-full flex flex-col relative overflow-hidden bg-background">
+    <section className="min-h-screen w-full flex flex-col relative overflow-hidden bg-background pt-24 sm:pt-28">
       {/* 3D Canvas Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
@@ -91,82 +89,6 @@ export const HeroSection: React.FC = () => {
         </Canvas>
         {/* Gradient overlay to blend bottom into next section */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-0 pointer-events-none" />
-      </div>
-
-      {/* Top Navigation - Fixed across all sections */}
-      <div className="fixed top-0 left-0 w-full p-6 sm:p-8 md:p-12 z-[90] pointer-events-none">
-        <FadeIn delay={0.1} y={-20} className="w-full flex justify-between items-center pointer-events-auto">
-          {/* Logo — top left */}
-            <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-20 md:w-28 lg:w-36 h-auto object-contain transition-transform hover:scale-105" />
-
-          {/* Right side container */}
-          <div className="flex items-center mix-blend-difference">
-            {/* Floating pill nav — top right */}
-            <div className="hidden md:flex items-center gap-2 rounded-full px-3 py-2.5"
-              style={{
-                background: 'linear-gradient(135deg, rgba(118,33,176,0.15) 0%, rgba(0,216,255,0.05) 100%)',
-                border: '1px solid rgba(0,216,255,0.2)',
-                borderTopColor: 'rgba(118,33,176,0.4)',
-                borderBottomColor: 'rgba(0,216,255,0.1)',
-                boxShadow: '0 8px 32px rgba(118,33,176,0.2), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(0,216,255,0.05)'
-              }}>
-              {['About', 'Services', 'Projects', 'Contact'].map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  className="relative px-6 py-2 rounded-full text-base font-medium tracking-wider text-white/90 hover:text-white transition-all duration-300 hover:bg-white/15 group"
-                >
-                  {link}
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00d8ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_8px_#00d8ff]" />
-                </a>
-              ))}
-            </div>
-
-            {/* Mobile hamburger */}
-            <div className="md:hidden flex items-center">
-              <button 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="w-10 h-10 flex flex-col justify-center items-center gap-[5px] z-[100] relative"
-              >
-                <motion.span 
-                  animate={isMobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                  className="w-6 h-[2px] bg-white rounded-full" 
-                />
-                <motion.span 
-                  animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  className="w-4 h-[2px] bg-white/60 rounded-full" 
-                />
-                <motion.span 
-                  animate={isMobileMenuOpen ? { rotate: -45, y: -7, width: 24, backgroundColor: '#fff' } : { rotate: 0, y: 0, width: 24, backgroundColor: 'transparent' }}
-                  className="h-[2px] rounded-full" 
-                />
-              </button>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Mobile Dropdown Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-24 left-4 right-4 bg-[#0C0C0C]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl pointer-events-auto"
-            >
-              {['About', 'Services', 'Projects', 'Contact'].map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-white text-lg font-medium py-2 border-b border-white/5 hover:text-[#00d8ff] transition-colors"
-                >
-                  {link}
-                </a>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
 
@@ -189,9 +111,9 @@ export const HeroSection: React.FC = () => {
           
           {/* Start Project Button */}
           <div className="mt-10 sm:mt-12 pointer-events-auto flex flex-col sm:flex-row items-center gap-4">
-            <a href="#contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-semibold tracking-wider text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center w-full sm:w-auto">
+            <Link to="/contact" className="inline-block rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base font-semibold tracking-wider text-black bg-white transition-all duration-300 hover:scale-105 hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center w-full sm:w-auto">
               WORK WITH US
-            </a>
+            </Link>
             <a 
               href="https://wa.me/917385750187?text=Hi%20NextGen%20AI!%20I'm%20interested%20in%20discussing%20a%20project." 
               target="_blank" 

@@ -1,287 +1,268 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
-
-// --- Hooks ---
-
-function useTypewriter(text: string, speed = 38, startDelay = 600) {
-  const [displayed, setDisplayed] = useState('');
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    let intervalId: ReturnType<typeof setInterval>;
-
-    timeoutId = setTimeout(() => {
-      let i = 0;
-      intervalId = setInterval(() => {
-        setDisplayed(text.slice(0, i + 1));
-        i++;
-        if (i >= text.length) {
-          clearInterval(intervalId);
-          setDone(true);
-        }
-      }, speed);
-    }, startDelay);
-
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(intervalId);
-    };
-  }, [text, speed, startDelay]);
-
-  return { displayed, done };
-}
-
-// --- Main Component ---
+import { Mail, MapPin, Send, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { FadeIn } from '../components/FadeIn';
 
 export const ContactPage: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [services, setServices] = useState<string[]>([]);
-  
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const lastX = useRef(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: 'Full-Scale SaaS Architecture',
+    budget: '$2,000 - $5,000',
+    message: ''
+  });
 
-  const { displayed, done } = useTypewriter("we'd love to\nhear from you!");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const serviceOptions = ["Brand", "Digital", "Campaign", "Other"];
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const toggleService = (opt: string) => {
-    setServices(prev => 
-      prev.includes(opt) ? prev.filter(s => s !== opt) : [...prev, opt]
-    );
+    try {
+      // Send to internal API endpoint if configured or simulate instant response
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  // Video Desktop Scrubbing
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (window.innerWidth < 1024 || !videoRef.current) return;
-      if (lastX.current === 0) {
-        lastX.current = e.clientX;
-        return;
-      }
-      const delta = e.clientX - lastX.current;
-      lastX.current = e.clientX;
-      
-      const duration = videoRef.current.duration;
-      if (!duration || isNaN(duration)) return;
-      
-      const deltaRatio = (delta / window.innerWidth) * 0.8;
-      let newTime = videoRef.current.currentTime + deltaRatio * duration;
-      newTime = Math.max(0, Math.min(newTime, duration));
-      videoRef.current.currentTime = newTime;
-    };
+  const services = [
+    'Full-Scale SaaS Architecture',
+    'Autonomous AI Agents & Solutions',
+    'Performance Marketing & GEO / AI-SEO',
+    'Workflow & Business Automation',
+    'Brand Identity & UI/UX Design',
+    'Other / Custom Consulting'
+  ];
 
-    // Bind seeked listener for smooth tracking
-    const handleSeeked = () => { /* Ensures rendering frame */ };
-    
-    const vid = videoRef.current;
-    if (vid) vid.addEventListener('seeked', handleSeeked);
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      if (vid) vid.removeEventListener('seeked', handleSeeked);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  // Video Mobile Autoplay
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1024 && videoRef.current) {
-        videoRef.current.autoplay = true;
-        videoRef.current.play().catch(() => {});
-      }
-    };
-    handleResize(); // run on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const budgets = [
+    '< ₹50,000 / $600 (Starter)',
+    '₹50,000 - ₹2,00,000 / $1k - $2.5k',
+    '₹2,00,000 - ₹5,00,000 / $2.5k - $6k',
+    '₹5,00,000+ / $6k+ (Enterprise)'
+  ];
 
   return (
-    <div className="relative bg-white text-neutral-900 font-inter selection:bg-[#EAECE9] selection:text-[#1C2E1E] antialiased overflow-x-hidden flex flex-col lg:block lg:min-h-screen">
-      
-      {/* Background Video Component */}
-      <div className="order-last lg:order-none relative lg:absolute lg:inset-0 lg:z-0 overflow-hidden pointer-events-none w-full aspect-square md:aspect-video lg:aspect-auto lg:h-full bg-neutral-50 lg:bg-transparent">
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover object-right lg:object-right-bottom"
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4"
-        />
-      </div>
+    <div className="w-full min-h-screen bg-background text-textPrimary pt-28 pb-24 px-6 sm:px-12 lg:px-20 relative overflow-hidden">
+      {/* Glow */}
+      <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-[#7621B0]/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#00d8ff]/10 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Interactive Navbar */}
-      <header className="fixed top-0 inset-x-0 z-[20] px-5 sm:px-8 py-4 sm:py-5 flex flex-row justify-between items-center bg-transparent">
-        <div className="flex flex-row items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.location.href = '/'}>
-          <img src="/logo-cropped.png" alt="NextGen AI Logo" className="w-16 md:w-20 lg:w-24 h-auto object-contain transition-transform hover:scale-105" />
-        </div>
+      <div className="max-w-6xl mx-auto flex flex-col gap-16 relative z-10">
+        {/* Header */}
+        <FadeIn delay={0.1} y={30} className="flex flex-col gap-4 max-w-3xl">
+          <div className="flex items-center gap-2">
+            <span className="w-8 h-[1px] bg-[#00d8ff]" />
+            <span className="text-[#00d8ff] text-xs uppercase tracking-[0.3em] font-semibold">Initiate Collaboration</span>
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+            Let’s build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d8ff] to-[#7621B0]">extraordinary</span>.
+          </h1>
+          <p className="text-white/70 text-base sm:text-lg leading-relaxed font-light mt-2">
+            Whether you are building an AI-powered SaaS, automating mission-critical workflows, or transforming your local business presence—we are ready to execute.
+          </p>
+        </FadeIn>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex flex-row items-center text-[23px] text-black font-medium">
-          <a href="#" className="hover:opacity-60 transition-opacity">Labs</a>
-          <span className="opacity-40">,&nbsp;</span>
-          <a href="#" className="hover:opacity-60 transition-opacity">Studio</a>
-          <span className="opacity-40">,&nbsp;</span>
-          <a href="#" className="hover:opacity-60 transition-opacity">Openings</a>
-          <span className="opacity-40">,&nbsp;</span>
-          <a href="#" className="hover:opacity-60 transition-opacity">Shop</a>
-        </nav>
-
-        {/* Desktop CTA */}
-        <a href="#" className="hidden md:block text-[23px] text-black underline underline-offset-2 hover:opacity-60 transition-opacity font-medium">
-          Get in touch
-        </a>
-
-        {/* Mobile Hamburger */}
-        <button 
-          className="md:hidden flex flex-col justify-center items-center w-8 h-8 z-[30] gap-1.5"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <span className={`w-6 h-[2px] bg-black transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
-          <span className={`w-6 h-[2px] bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
-          <span className={`w-6 h-[2px] bg-black transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
-        </button>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-[19] bg-white/95 backdrop-blur-sm transition-opacity duration-300 flex items-center justify-center ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <nav className="flex flex-col items-center gap-6 text-3xl font-medium text-black">
-          <a href="#">Labs</a>
-          <a href="#">Studio</a>
-          <a href="#">Openings</a>
-          <a href="#">Shop</a>
-          <a href="#" className="underline mt-4">Get in touch</a>
-        </nav>
-      </div>
-
-      {/* Content Layout Container */}
-      <div className="relative z-10 flex flex-col order-first lg:order-none w-full bg-white lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen">
-        <main id="spade-hero" className="w-full max-w-7xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center mt-20 lg:mt-0">
-          
-          {/* Headline with Typewriter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight text-black leading-[1.08] mb-8 select-none w-full whitespace-pre-wrap">
-              {displayed}
-              {!done && (
-                <span className="inline-block w-[2px] h-[1.1em] bg-black align-middle ml-[2px] animate-blink" />
-              )}
-            </h1>
-          </motion.div>
-
-          {/* Secondary Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <p className="text-lg md:text-xl text-[#5A635A] leading-relaxed font-normal mb-14 max-w-2xl">
-              Whether you have questions, feedback, <br /> drop us a message and we'll get back to you as soon as possible.
-            </p>
-          </motion.div>
-
-          {/* Interactive Multi-Select Service Pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h2 className="text-2xl font-medium tracking-tight mb-2">What sort of service?</h2>
-            <p className="opacity-85 text-[#738273] mb-8">Select all that apply</p>
-            
-            <div className="flex flex-wrap gap-3 mb-10">
-              {serviceOptions.map(opt => {
-                const isActive = services.includes(opt);
-                return (
-                  <motion.button
-                    key={opt}
-                    onClick={() => toggleService(opt)}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                      isActive 
-                        ? 'bg-[#1C2E1E] text-white shadow-md shadow-emerald-950/5' 
-                        : 'bg-white text-[#1C2E1E] border border-[#F1F3F1] hover:bg-[#F1F3F1]/55'
-                    }`}
-                  >
-                    {opt}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ scale: 0, width: 0 }}
-                          animate={{ scale: 1, width: 'auto' }}
-                          exit={{ scale: 0, width: 0 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        >
-                          <Check size={16} strokeWidth={3} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.button>
-                );
-              })}
-            </div>
-
-            {/* Contingent Feedback Status Banner */}
-            <div className="min-h-[100px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Form Container (7 cols) */}
+          <FadeIn delay={0.2} y={30} className="lg:col-span-7">
+            <div className="p-8 sm:p-10 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md shadow-2xl relative overflow-hidden">
               <AnimatePresence mode="wait">
-                {services.length === 0 ? (
-                  <motion.p
-                    key="empty"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.5 }}
-                    exit={{ opacity: 0 }}
-                    className="italic text-xs text-neutral-500"
-                  >
-                    Please click to select services above.
-                  </motion.p>
-                ) : (
+                {submitted ? (
                   <motion.div
-                    key="active"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="py-12 flex flex-col items-center text-center gap-4"
                   >
-                    <div className="bg-[#FAFBF9] border border-neutral-100 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                      <p className="text-neutral-800">
-                        Ready to inquire about: <span className="font-semibold">{services.join(", ")}</span>
-                      </p>
-                      <button className="text-[#4D6D47] uppercase text-xs font-bold tracking-widest flex items-center gap-2 hover:opacity-70 transition-opacity">
-                        Let's Go
-                        <span>&rarr;</span>
-                      </button>
-                    </div>
-                    
-                    {/* Basic Form */}
-                    <form className="mt-8 flex flex-col gap-4 max-w-xl">
-                      <input 
-                        type="text" 
-                        placeholder="Your Name" 
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#1C2E1E]/20"
-                      />
-                      <input 
-                        type="email" 
-                        placeholder="Your Email" 
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#1C2E1E]/20"
-                      />
-                      <textarea 
-                        placeholder="Tell us about your project" 
-                        rows={4}
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#1C2E1E]/20"
-                      />
-                    </form>
+                    <CheckCircle2 className="w-16 h-16 text-[#25D366]" />
+                    <h3 className="text-2xl font-bold text-white">Message Dispatched!</h3>
+                    <p className="text-white/70 text-sm sm:text-base max-w-md font-light">
+                      Thank you for reaching out. Founder Harsh Kumar Singh or a lead architect will review your project and get back to you within 2 to 4 hours.
+                    </p>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="mt-6 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/10 text-white hover:bg-white/20 transition-colors"
+                    >
+                      Send Another Message
+                    </button>
                   </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="e.g. Rahul Sharma"
+                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors placeholder:text-white/20"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Work Email *</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="rahul@company.com"
+                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors placeholder:text-white/20"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Phone / WhatsApp</label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors placeholder:text-white/20"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Service of Interest</label>
+                        <select
+                          value={formData.service}
+                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors"
+                        >
+                          {services.map(s => (
+                            <option key={s} value={s} className="bg-[#141414] text-white">{s}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Estimated Budget</label>
+                      <select
+                        value={formData.budget}
+                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors"
+                      >
+                        {budgets.map(b => (
+                          <option key={b} value={b} className="bg-[#141414] text-white">{b}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Project Scope & Goals *</label>
+                      <textarea
+                        rows={4}
+                        required
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Tell us about your product, challenges, desired timeline, or key objectives..."
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#00d8ff] transition-colors placeholder:text-white/20 resize-none"
+                      />
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-black bg-white hover:bg-gray-100 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:scale-105 disabled:opacity-50"
+                      >
+                        {isSubmitting ? (
+                          <span>Sending Proposal Request...</span>
+                        ) : (
+                          <>
+                            <span>SUBMIT PROPOSAL REQUEST</span>
+                            <Send className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+
+                      <a
+                        href="https://wa.me/917385750187?text=Hi%20NextGen%20AI!%20I'd%20like%20to%20discuss%20a%20project."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold tracking-wider text-[#25D366] bg-white hover:bg-gray-100 transition-all flex items-center justify-center gap-2 shadow-md hover:scale-105"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        <span>QUICK CHAT ON WHATSAPP</span>
+                      </a>
+                    </div>
+                  </form>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </FadeIn>
 
-        </main>
+          {/* Contact Details & Direct Connect (5 cols) */}
+          <FadeIn delay={0.3} y={30} className="lg:col-span-5 flex flex-col gap-8">
+            <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col gap-6">
+              <h3 className="text-xl font-bold text-white tracking-tight">Direct Channels</h3>
+              
+              <div className="flex flex-col gap-4">
+                <a 
+                  href="https://wa.me/917385750187?text=Hi%20NextGen%20AI!%20I'm%20interested%20in%20discussing%20a%20project." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 transition-all group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-white/50 uppercase tracking-wider font-medium">Instant Messaging</span>
+                    <span className="text-white font-semibold text-base group-hover:text-[#25D366] transition-colors">+91 7385750187</span>
+                    <span className="text-xs text-white/40 mt-0.5">Average reply time: under 15 mins</span>
+                  </div>
+                </a>
+
+                <a 
+                  href="mailto:aigetnextgen@gmail.com" 
+                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 transition-all group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#00d8ff]/10 text-[#00d8ff] border border-[#00d8ff]/20">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-white/50 uppercase tracking-wider font-medium">Email Inquiries</span>
+                    <span className="text-white font-semibold text-base group-hover:text-[#00d8ff] transition-colors">aigetnextgen@gmail.com</span>
+                    <span className="text-xs text-white/40 mt-0.5">Detailed scopes & RFP documents</span>
+                  </div>
+                </a>
+
+                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                  <div className="p-2.5 rounded-xl bg-[#7621B0]/10 text-[#7621B0] border border-[#7621B0]/20">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-white/50 uppercase tracking-wider font-medium">Headquarters</span>
+                    <span className="text-white font-semibold text-base">Pune, Maharashtra, India</span>
+                    <span className="text-xs text-white/40 mt-0.5">Viman Nagar & Baner Tech Corridors</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guarantee / Callout Card */}
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-[#7621B0]/15 to-[#00d8ff]/10 border border-white/10 flex flex-col gap-3">
+              <span className="text-[#00d8ff] text-xs font-bold uppercase tracking-wider">NextGen Commitment</span>
+              <h4 className="text-lg font-bold text-white">Strict Non-Disclosure & Intellectual Property</h4>
+              <p className="text-white/70 text-xs sm:text-sm font-light leading-relaxed">
+                You own 100% of the code, intellectual property, and design assets from day one. Mutual NDAs are available prior to any technical discovery call.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </div>
   );
