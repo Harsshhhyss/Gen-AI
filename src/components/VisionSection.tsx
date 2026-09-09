@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FadeIn } from './FadeIn';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const VisionSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (cardsRef.current) {
+        const cards = cardsRef.current.children;
+        gsap.fromTo(
+          cards,
+          { 
+            opacity: 0, 
+            y: 60, 
+            scale: 0.95,
+            rotationX: 8
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            duration: 0.9,
+            stagger: 0.18,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const pillars = [
     {
       number: '01',
@@ -25,7 +65,7 @@ export const VisionSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#090909] relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#090909] relative overflow-hidden">
       {/* Glow effect */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#7621B0]/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00d8ff]/10 rounded-full blur-3xl pointer-events-none" />
@@ -45,10 +85,10 @@ export const VisionSection: React.FC = () => {
           </p>
         </FadeIn>
 
-        {/* 3 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pillars.map((pillar, idx) => (
-            <FadeIn key={pillar.number} delay={0.2 + idx * 0.15} y={30}>
+        {/* 3 Pillars Grid with GSAP trigger */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-1000">
+          {pillars.map((pillar) => (
+            <div key={pillar.number} className="h-full will-change-transform">
               <motion.div 
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.3 }}
@@ -74,7 +114,7 @@ export const VisionSection: React.FC = () => {
                   NEXTGEN PRINCIPLE // {pillar.number}
                 </div>
               </motion.div>
-            </FadeIn>
+            </div>
           ))}
         </div>
       </div>

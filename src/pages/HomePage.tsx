@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HeroSection } from '../sections/HeroSection';
 import { MarqueeSection } from '../sections/MarqueeSection';
 import { VisionSection } from '../components/VisionSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { FadeIn } from '../components/FadeIn';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const HomePage: React.FC = () => {
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (progressRef.current) {
+        gsap.to(progressRef.current, {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.15,
+          }
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
   const serviceCards = [
     {
       title: 'Full-Scale SaaS Architecture',
@@ -59,7 +83,15 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col bg-background text-textPrimary">
+    <div className="w-full flex flex-col bg-background text-textPrimary relative">
+      {/* GSAP Scroll Progress Indicator */}
+      <div className="fixed top-0 left-0 right-0 h-[2.5px] z-[100] bg-transparent pointer-events-none">
+        <div 
+          ref={progressRef}
+          className="h-full w-full bg-gradient-to-r from-[#00d8ff] via-[#7621B0] to-[#B600A8] origin-left scale-x-0 shadow-[0_0_12px_#00d8ff]"
+        />
+      </div>
+
       {/* 1. Hero */}
       <HeroSection />
 

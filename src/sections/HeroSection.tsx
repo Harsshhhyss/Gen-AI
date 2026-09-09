@@ -1,9 +1,13 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/FadeIn';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, MeshDistortMaterial, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';const InstaIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><defs><linearGradient id="insta-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f09433" /><stop offset="25%" stopColor="#e6683c" /><stop offset="50%" stopColor="#dc2743" /><stop offset="75%" stopColor="#cc2366" /><stop offset="100%" stopColor="#bc1888" /></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#insta-grad)"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#insta-grad)"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#insta-grad)"></line></svg>;
+import * as THREE from 'three';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);const InstaIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><defs><linearGradient id="insta-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f09433" /><stop offset="25%" stopColor="#e6683c" /><stop offset="50%" stopColor="#dc2743" /><stop offset="75%" stopColor="#cc2366" /><stop offset="100%" stopColor="#bc1888" /></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#insta-grad)"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#insta-grad)"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#insta-grad)"></line></svg>;
 const LinkedinIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
 const TwitterIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#1DA1F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>;
 const YoutubeIcon = (props: any) => <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.17 1 12 1 12s0 3.83.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.83 23 12 23 12s0-3.83-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#FF0000"></polygon></svg>;
@@ -80,10 +84,51 @@ const ParticleCore = () => {
 };
 
 export const HeroSection: React.FC = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Parallax scrub on 3D Canvas
+      if (canvasRef.current) {
+        gsap.to(canvasRef.current, {
+          yPercent: 18,
+          scale: 1.05,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          }
+        });
+      }
+
+      // 2. Smooth scale and fade out for hero content on scroll
+      if (contentRef.current) {
+        gsap.to(contentRef.current, {
+          y: -50,
+          opacity: 0.15,
+          scale: 0.94,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '70% top',
+            scrub: true,
+          }
+        });
+      }
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="min-h-screen w-full flex flex-col relative overflow-hidden bg-background pt-24 sm:pt-28">
+    <section ref={heroRef} className="min-h-screen w-full flex flex-col relative overflow-hidden bg-background pt-24 sm:pt-28">
       {/* 3D Canvas Background */}
-      <div className="absolute inset-0 z-0">
+      <div ref={canvasRef} className="absolute inset-0 z-0 will-change-transform">
         <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
           <ParticleCore />
         </Canvas>
@@ -93,7 +138,7 @@ export const HeroSection: React.FC = () => {
 
 
       {/* Hero Heading & Tagline & Button */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full mt-6 sm:mt-4 md:-mt-5 px-4 pointer-events-none">
+      <div ref={contentRef} className="flex-1 flex flex-col items-center justify-center relative z-10 w-full mt-6 sm:mt-4 md:-mt-5 px-4 pointer-events-none will-change-transform">
         <FadeIn delay={0.15} y={40} className="w-full flex flex-col items-center justify-center pointer-events-none">
           <div className="flex items-center gap-2 mb-4 sm:mb-6">
             <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#00d8ff]"></span>
