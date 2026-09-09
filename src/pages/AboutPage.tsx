@@ -54,11 +54,12 @@ export const AboutPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
           <FadeIn delay={0.2} y={30} className="md:col-span-5">
             <div className="relative rounded-2xl overflow-hidden border border-white/10 p-2 bg-gradient-to-b from-white/10 to-transparent">
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" 
-                alt="NextGen AI Leadership" 
-                className="w-full h-96 object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500" 
-              />
+              <div className="w-full h-96 rounded-xl bg-gradient-to-br from-[#18011F] via-[#0C0C0C] to-[#031d2e] flex flex-col items-center justify-center border border-white/5 relative overflow-hidden group">
+                <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-3xl font-black text-white/40 tracking-wider shadow-inner group-hover:border-[#00d8ff]/40 group-hover:text-[#00d8ff] transition-all">
+                  HKS
+                </div>
+                <span className="mt-4 text-xs tracking-[0.2em] uppercase text-white/30 font-medium">Founder & Leadership</span>
+              </div>
               <div className="p-4 flex flex-col">
                 <span className="text-white font-bold text-lg">Harsh Kumar Singh</span>
                 <span className="text-[#00d8ff] text-xs uppercase tracking-wider">Founder & Chief Architect</span>
