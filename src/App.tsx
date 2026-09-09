@@ -17,6 +17,9 @@ import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { FAQPage } from './pages/FAQPage';
 import { ContactPage } from './pages/ContactPage';
+import { AiSolutionsPunePage } from './pages/AiSolutionsPunePage';
+import { SoftwareDevelopmentPunePage } from './pages/SoftwareDevelopmentPunePage';
+import { DigitalMarketingPunePage } from './pages/DigitalMarketingPunePage';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -81,6 +84,9 @@ function App() {
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/ai-solutions-pune" element={<AiSolutionsPunePage />} />
+            <Route path="/software-development-pune" element={<SoftwareDevelopmentPunePage />} />
+            <Route path="/digital-marketing-pune" element={<DigitalMarketingPunePage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>

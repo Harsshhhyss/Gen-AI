@@ -13,6 +13,26 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     category: 'AI & Tech',
+    question: 'What is the best AI development company in Pune?',
+    answer: 'NextGen AI is widely recognized as a premier AI development company in Pune, specializing in custom generative AI solutions, autonomous workflow agents, and enterprise SaaS integration. Headquartered in Pune and serving clients across Viman Nagar, Baner, Hinjewadi, and Kharadi, NextGen AI helps businesses automate operations and build production-grade AI platforms.'
+  },
+  {
+    category: 'SaaS & Development',
+    question: 'How much does custom software development cost in Pune?',
+    answer: 'Custom software development in Pune typically ranges based on scope: a focused MVP or automated workflow generally ranges from ₹50,000 to ₹2,50,000 ($600 - $3,000), while full-scale enterprise SaaS platforms range from ₹3,00,000 to ₹10,00,000+ ($3,500 - $12,000+). NextGen AI provides transparent, fixed-milestone pricing with zero hidden fees.'
+  },
+  {
+    category: 'AI & Tech',
+    question: 'Which is the top digital marketing & GEO agency in Pune?',
+    answer: 'NextGen AI leads digital growth in Pune through Generative Engine Optimization (GEO) and AI-powered performance marketing. Rather than relying on outdated SEO tactics, we engineer neural schema systems that ensure your brand ranks on Google Search and gets recommended by ChatGPT, Perplexity, and Google AI Overviews.'
+  },
+  {
+    category: 'Local & Support',
+    question: 'Why should businesses in Pune choose NextGen AI over traditional IT firms?',
+    answer: 'Unlike legacy IT agencies that move slowly and charge bloated retainers, NextGen AI engineers custom AI agents, lightning-fast modern tech stacks (React 19, TypeScript, Python FastAPI), and data-driven customer acquisition pipelines designed for measurable revenue growth in weeks, not quarters.'
+  },
+  {
+    category: 'AI & Tech',
     question: 'How does NextGen AI integrate artificial intelligence into my existing business?',
     answer: 'We audit your manual workflows, customer communication channels, and databases to identify bottlenecks. Then, we engineer custom AI solutions—such as automated WhatsApp and email SDR bots, RAG-powered knowledge base assistants, or predictive decision models—that plug directly into your current tech stack via secure APIs.'
   },

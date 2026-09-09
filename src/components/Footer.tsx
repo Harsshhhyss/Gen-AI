@@ -35,7 +35,16 @@ export const Footer: React.FC = () => {
             <Link to="/contact" className="text-white/70 hover:text-white transition-colors text-sm">Contact & Consultation</Link>
           </div>
 
-          {/* Col 3: Direct Connect */}
+          {/* Col 3: Pune Regional Hubs */}
+          <div className="flex flex-col gap-3">
+            <span className="text-white font-semibold text-xs tracking-[0.2em] uppercase text-[#00d8ff]">Pune Solutions</span>
+            <Link to="/ai-solutions-pune" className="text-white/70 hover:text-white transition-colors text-sm">AI Development Pune</Link>
+            <Link to="/software-development-pune" className="text-white/70 hover:text-white transition-colors text-sm">Software Company Pune</Link>
+            <Link to="/digital-marketing-pune" className="text-white/70 hover:text-white transition-colors text-sm">Digital Marketing Pune</Link>
+            <span className="text-xs text-white/40 mt-1">Hinjewadi · Baner · Viman Nagar · Kharadi</span>
+          </div>
+
+          {/* Col 4: Direct Connect */}
           <div className="flex flex-col gap-3">
             <span className="text-white font-semibold text-xs tracking-[0.2em] uppercase text-[#00d8ff]">Direct Connect</span>
             <a 
