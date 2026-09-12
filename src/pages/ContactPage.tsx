@@ -118,7 +118,7 @@ export const ContactPage: React.FC = () => {
                     <div className="w-full max-w-md bg-black/40 border border-white/10 rounded-2xl p-4 text-left flex flex-col gap-2.5">
                       <div className="flex justify-between items-center text-xs pb-2 border-b border-white/5">
                         <span className="text-white/50">Lead Alert Sent To</span>
-                        <span className="text-white font-mono font-medium">aigetnextgen@gmail.com</span>
+                        <span className="text-white font-mono font-medium">connect@getnextgen.in</span>
                       </div>
                       {submittedEmail && (
                         <div className="flex justify-between items-center text-xs pb-2 border-b border-white/5">

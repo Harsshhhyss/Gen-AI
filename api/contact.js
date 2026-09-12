@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     // 1. Dispatch notification email to NextGen AI team
     const { data, error } = await resend.emails.send({
       from: 'NextGen AI <connect@getnextgen.in>',
-      to: ['aigetnextgen@gmail.com'],
+      to: ['connect@getnextgen.in'],
       replyTo: email ? email : undefined,
       subject: `⚡ New Project Inquiry: ${name} (${clientService})`,
       html: `
@@ -162,7 +162,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       emailId: data?.id,
-      recipient: 'aigetnextgen@gmail.com',
+      recipient: 'connect@getnextgen.in',
       clientConfirmationSent
     });
   } catch (error) {

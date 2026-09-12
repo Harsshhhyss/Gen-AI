@@ -306,10 +306,10 @@ export const ContactSection: React.FC = () => {
             <div className="flex flex-col gap-2">
               <span className="text-[#D7E2EA]/40 text-xs tracking-[0.3em] uppercase">Email us</span>
               <a
-                href="mailto:aigetnextgen@gmail.com"
+                href="mailto:connect@getnextgen.in"
                 className="text-[#D7E2EA] font-medium text-xl sm:text-2xl md:text-3xl tracking-tight hover:text-[#B600A8] transition-colors duration-300 group flex items-center gap-3 break-all"
               >
-                aigetnextgen@gmail.com
+                connect@getnextgen.in
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg">→</span>
               </a>
             </div>
