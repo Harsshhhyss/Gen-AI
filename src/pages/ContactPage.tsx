@@ -260,7 +260,7 @@ export const ContactPage: React.FC = () => {
                 </a>
 
                 <a 
-                  href="mailto:aigetnextgen@gmail.com" 
+                  href="mailto:connect@getnextgen.in" 
                   className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 transition-all group"
                 >
                   <div className="p-2.5 rounded-xl bg-[#00d8ff]/10 text-[#00d8ff] border border-[#00d8ff]/20">
@@ -268,7 +268,7 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-xs text-white/50 uppercase tracking-wider font-medium">Email Inquiries</span>
-                    <span className="text-white font-semibold text-base group-hover:text-[#00d8ff] transition-colors">aigetnextgen@gmail.com</span>
+                    <span className="text-white font-semibold text-base group-hover:text-[#00d8ff] transition-colors">connect@getnextgen.in</span>
                     <span className="text-xs text-white/40 mt-0.5">Detailed scopes & RFP documents</span>
                   </div>
                 </a>

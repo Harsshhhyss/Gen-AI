@@ -57,10 +57,10 @@ export const Footer: React.FC = () => {
               WhatsApp: +91 7385750187
             </a>
             <a 
-              href="mailto:aigetnextgen@gmail.com" 
+              href="mailto:connect@getnextgen.in" 
               className="text-white/70 hover:text-white transition-colors text-sm"
             >
-              aigetnextgen@gmail.com
+              connect@getnextgen.in
             </a>
             <p className="text-xs text-white/50 leading-relaxed mt-2">
               Available 24/7 for project discovery sessions and urgent technical consultations.

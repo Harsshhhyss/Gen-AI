@@ -148,9 +148,9 @@ export const PrivacyPolicyPage: React.FC = () => {
 
             <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-1">
               <span className="text-xs uppercase text-white/40 font-medium">Grievance Email</span>
-              <a href="mailto:aigetnextgen@gmail.com" className="text-white font-semibold text-sm hover:text-[#00d8ff] transition-colors flex items-center gap-1.5">
+              <a href="mailto:connect@getnextgen.in" className="text-white font-semibold text-sm hover:text-[#00d8ff] transition-colors flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5" />
-                aigetnextgen@gmail.com
+                connect@getnextgen.in
               </a>
               <span className="text-white/40 text-xs">Response time: ≤ 48 hours</span>
             </div>

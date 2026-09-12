@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     // 1. Dispatch notification email to NextGen AI team
     const { data, error } = await resend.emails.send({
-      from: 'NextGen AI <contact@getnextgen.in>',
+      from: 'NextGen AI <connect@getnextgen.in>',
       to: ['aigetnextgen@gmail.com'],
       replyTo: email ? email : undefined,
       subject: `⚡ New Project Inquiry: ${name} (${clientService})`,
@@ -105,7 +105,7 @@ export default async function handler(req, res) {
     if (email && email.includes('@')) {
       try {
         await resend.emails.send({
-          from: 'NextGen AI <contact@getnextgen.in>',
+          from: 'NextGen AI <connect@getnextgen.in>',
           to: [email],
           subject: `We received your inquiry, ${name} — NextGen AI`,
           html: `
