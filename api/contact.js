@@ -1,24 +1,28 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export default async function handler(req, res) {
   // Only allow POST
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
   try {
     const { name, email, phone, service, budget, message, projectDetails } = req.body || {};
 
     if (!name || (!phone && !email)) {
-      return res.status(400).json({ error: 'Name and either Email or Phone are required' });
+      return res.status(400).json({ success: false, error: 'Name and either Email or Phone are required.' });
     }
 
-    if (!process.env.RESEND_API_KEY) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
       console.error('RESEND_API_KEY environment variable is missing.');
-      return res.status(500).json({ error: 'Email service not configured. Missing RESEND_API_KEY.' });
+      return res.status(500).json({
+        success: false,
+        error: 'Email service configuration error: RESEND_API_KEY is not configured in Vercel environment variables.'
+      });
     }
+
+    const resend = new Resend(apiKey);
 
     const clientEmail = email || 'Not provided';
     const clientPhone = phone || 'Not provided';
@@ -98,13 +102,18 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Resend dispatch error:', error);
-      return res.status(400).json({ error });
+      const errDetail = error.message || (typeof error === 'string' ? error : JSON.stringify(error));
+      return res.status(400).json({
+        success: false,
+        error: `Resend error: ${errDetail}`
+      });
     }
 
     // 2. Send professional auto-confirmation email to the prospective client if email was provided
+    let clientConfirmationSent = false;
     if (email && email.includes('@')) {
       try {
-        await resend.emails.send({
+        const clientRes = await resend.emails.send({
           from: 'NextGen AI <connect@getnextgen.in>',
           to: [email],
           subject: `We received your inquiry, ${name} — NextGen AI`,
@@ -141,14 +150,26 @@ export default async function handler(req, res) {
             </html>
           `,
         });
+
+        if (clientRes?.data?.id) {
+          clientConfirmationSent = true;
+        }
       } catch (clientErr) {
         console.warn('Could not dispatch client auto-confirmation:', clientErr);
       }
     }
 
-    return res.status(200).json({ success: true, data });
+    return res.status(200).json({
+      success: true,
+      emailId: data?.id,
+      recipient: 'aigetnextgen@gmail.com',
+      clientConfirmationSent
+    });
   } catch (error) {
     console.error('Unexpected error in contact API:', error);
-    return res.status(500).json({ error: error.message || 'Internal Server Error' });
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Internal Server Error'
+    });
   }
 }
