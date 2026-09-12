@@ -15,17 +15,31 @@ export const ContactPage: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage('');
 
     try {
-      // Send to internal API endpoint if configured or simulate instant response
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      setSubmitted(true);
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        setSubmitted(true);
+      } else {
+        const errorText = result.error?.message || (typeof result.error === 'string' ? result.error : 'Failed to send message. Please contact us via WhatsApp.');
+        setErrorMessage(errorText);
+      }
     } catch (err) {
-      console.error(err);
+      console.error('Error submitting form:', err);
+      setErrorMessage('Network connection error. Please use WhatsApp or email directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -87,7 +101,17 @@ export const ContactPage: React.FC = () => {
                       Thank you for reaching out. Founder Harsh Kumar Singh or a lead architect will review your project and get back to you within 2 to 4 hours.
                     </p>
                     <button
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({
+                          name: '',
+                          email: '',
+                          phone: '',
+                          service: 'Full-Scale SaaS Architecture',
+                          budget: '< ₹50,000 / $600 (Starter)',
+                          message: ''
+                        });
+                      }}
                       className="mt-6 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/10 text-white hover:bg-white/20 transition-colors"
                     >
                       Send Another Message
@@ -95,6 +119,15 @@ export const ContactPage: React.FC = () => {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                    {errorMessage && (
+                      <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs sm:text-sm flex flex-col gap-1">
+                        <span className="font-semibold text-red-200">Delivery Alert:</span>
+                        <span>{errorMessage}</span>
+                        <span className="text-white/60 text-[11px] mt-1">
+                          You can also reach founder Harsh instantly on WhatsApp using the button below.
+                        </span>
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
                         <label className="text-xs uppercase tracking-wider text-white/60 font-medium">Your Name *</label>
