@@ -26,8 +26,9 @@ export default async function handler(req, res) {
     const clientBudget = budget || 'Not specified';
     const details = message || projectDetails || 'No details provided.';
 
+    // 1. Dispatch notification email to NextGen AI team
     const { data, error } = await resend.emails.send({
-      from: 'NextGen AI Lead Bot <onboarding@resend.dev>',
+      from: 'NextGen AI <contact@getnextgen.in>',
       to: ['aigetnextgen@gmail.com'],
       replyTo: email ? email : undefined,
       subject: `⚡ New Project Inquiry: ${name} (${clientService})`,
@@ -98,6 +99,51 @@ export default async function handler(req, res) {
     if (error) {
       console.error('Resend dispatch error:', error);
       return res.status(400).json({ error });
+    }
+
+    // 2. Send professional auto-confirmation email to the prospective client if email was provided
+    if (email && email.includes('@')) {
+      try {
+        await resend.emails.send({
+          from: 'NextGen AI <contact@getnextgen.in>',
+          to: [email],
+          subject: `We received your inquiry, ${name} — NextGen AI`,
+          html: `
+            <!DOCTYPE html>
+            <html>
+              <body style="font-family: Arial, sans-serif; background-color: #0c0c0c; color: #e0e0e0; margin: 0; padding: 24px;">
+                <div style="max-width: 600px; margin: 0 auto; background: #141414; border: 1px solid #2a2a2a; border-radius: 12px; padding: 28px;">
+                  <h2 style="color: #ffffff; margin-top: 0; font-size: 22px;">Thank you for reaching out, ${name}.</h2>
+                  <p style="color: #00d8ff; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 20px;">
+                    Proposal Request Acknowledged
+                  </p>
+                  <p style="color: #cccccc; font-size: 14px; line-height: 1.6;">
+                    We have successfully received your project inquiry regarding <strong>${clientService}</strong>.
+                  </p>
+                  <p style="color: #cccccc; font-size: 14px; line-height: 1.6;">
+                    Our founder Harsh Kumar Singh and our technical architecture team are reviewing your project scope. You will receive a direct response with preliminary insights or a calendar invite within <strong>2 to 4 hours</strong>.
+                  </p>
+                  
+                  <div style="margin: 24px 0; padding: 18px; background: #0c0c0c; border-radius: 8px; border-left: 3px solid #00d8ff;">
+                    <p style="margin: 0 0 6px 0; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Need immediate consultation?</p>
+                    <p style="margin: 0; color: #ffffff; font-size: 14px;">
+                      Chat directly with our team on WhatsApp: 
+                      <a href="https://wa.me/917385750187" style="color: #25D366; text-decoration: none; font-weight: bold; margin-left: 4px;">+91 7385750187</a>
+                    </p>
+                  </div>
+
+                  <p style="color: #666666; font-size: 12px; margin-top: 30px; border-top: 1px solid #222; padding-top: 16px; line-height: 1.5;">
+                    NextGen AI · SaaS & AI Engineering Agency<br />
+                    Pune, Maharashtra, India · <a href="https://www.getnextgen.in" style="color: #00d8ff; text-decoration: none;">www.getnextgen.in</a>
+                  </p>
+                </div>
+              </body>
+            </html>
+          `,
+        });
+      } catch (clientErr) {
+        console.warn('Could not dispatch client auto-confirmation:', clientErr);
+      }
     }
 
     return res.status(200).json({ success: true, data });
