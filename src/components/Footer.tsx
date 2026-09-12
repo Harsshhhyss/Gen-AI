@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} NextGen AI. All rights reserved.
           </span>
           <div className="flex gap-6">
-            <Link to="/faq" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/faq" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Support</Link>
           </div>

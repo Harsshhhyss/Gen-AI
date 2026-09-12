@@ -20,6 +20,7 @@ import { ContactPage } from './pages/ContactPage';
 import { AiSolutionsPunePage } from './pages/AiSolutionsPunePage';
 import { SoftwareDevelopmentPunePage } from './pages/SoftwareDevelopmentPunePage';
 import { DigitalMarketingPunePage } from './pages/DigitalMarketingPunePage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   return (
@@ -87,6 +88,8 @@ function App() {
             <Route path="/ai-solutions-pune" element={<AiSolutionsPunePage />} />
             <Route path="/software-development-pune" element={<SoftwareDevelopmentPunePage />} />
             <Route path="/digital-marketing-pune" element={<DigitalMarketingPunePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>
