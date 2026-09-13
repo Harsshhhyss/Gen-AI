@@ -31,6 +31,10 @@ export const Footer: React.FC = () => {
             <Link to="/services" className="text-white/70 hover:text-white transition-colors text-sm">Services</Link>
             <Link to="/about" className="text-white/70 hover:text-white transition-colors text-sm">About Us</Link>
             <Link to="/projects" className="text-white/70 hover:text-white transition-colors text-sm">Projects & Portfolio</Link>
+            <Link to="/careers" className="text-white/70 hover:text-white transition-colors text-sm flex items-center gap-2">
+              Careers
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#00d8ff]/15 text-[#00d8ff] border border-[#00d8ff]/30 uppercase tracking-wider">We're Hiring</span>
+            </Link>
             <Link to="/faq" className="text-white/70 hover:text-white transition-colors text-sm">Frequently Asked Questions</Link>
             <Link to="/contact" className="text-white/70 hover:text-white transition-colors text-sm">Contact & Consultation</Link>
           </div>
